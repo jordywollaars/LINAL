@@ -1,0 +1,11 @@
+D:\Users\Jordy\Desktop\LINAL\LINAL\LinalEindopdracht\Debug\openal32.dll
+D:\Users\Jordy\Desktop\LINAL\LINAL\LinalEindopdracht\Debug\sfml-audio-2.dll
+D:\Users\Jordy\Desktop\LINAL\LINAL\LinalEindopdracht\Debug\sfml-audio-d-2.dll
+D:\Users\Jordy\Desktop\LINAL\LINAL\LinalEindopdracht\Debug\sfml-graphics-2.dll
+D:\Users\Jordy\Desktop\LINAL\LINAL\LinalEindopdracht\Debug\sfml-graphics-d-2.dll
+D:\Users\Jordy\Desktop\LINAL\LINAL\LinalEindopdracht\Debug\sfml-network-2.dll
+D:\Users\Jordy\Desktop\LINAL\LINAL\LinalEindopdracht\Debug\sfml-network-d-2.dll
+D:\Users\Jordy\Desktop\LINAL\LINAL\LinalEindopdracht\Debug\sfml-system-2.dll
+D:\Users\Jordy\Desktop\LINAL\LINAL\LinalEindopdracht\Debug\sfml-system-d-2.dll
+D:\Users\Jordy\Desktop\LINAL\LINAL\LinalEindopdracht\Debug\sfml-window-2.dll
+D:\Users\Jordy\Desktop\LINAL\LINAL\LinalEindopdracht\Debug\sfml-window-d-2.dll
