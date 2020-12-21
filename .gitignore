@@ -1,32 +1,24 @@
-# Prerequisites
-*.d
+out/
 
-# Compiled Object files
-*.slo
-*.lo
-*.o
-*.obj
+# Visual C++ cache files
+ipch/
+*.aps
+*.ncb
+*.opendb
+*.opensdf
+*.sdf
+*.cachefile
+*.VC.db
+*.VC.VC.opendb
+*.suo
 
-# Precompiled Headers
-*.gch
-*.pch
+# Visual Studio profiler
+*.psess
+*.vsp
+*.vspx
+*.sap
 
-# Compiled Dynamic libraries
-*.so
-*.dylib
-*.dll
+*.sqlite
+*.db-shm
 
-# Fortran module files
-*.mod
-*.smod
-
-# Compiled Static libraries
-*.lai
-*.la
-*.a
-*.lib
-
-# Executables
-*.exe
-*.out
-*.app
+*.db-wal
