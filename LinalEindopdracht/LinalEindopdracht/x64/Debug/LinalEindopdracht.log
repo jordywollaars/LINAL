@@ -1,2 +1,87 @@
 ﻿  Main.cpp
+D:\Users\Jordy\Desktop\LINAL\LINAL\LinalEindopdracht\LinalEindopdracht\Matrix.hpp(16,2): warning C4018: '<': signed/unsigned mismatch
+D:\Users\Jordy\Desktop\LINAL\LINAL\LinalEindopdracht\LinalEindopdracht\Matrix.hpp(11): message : while compiling class template member function 'Matrix<double>::Matrix(unsigned int,unsigned int,Scalar)'
+          with
+          [
+              Scalar=double
+          ]
+D:\Users\Jordy\Desktop\LINAL\LINAL\LinalEindopdracht\LinalEindopdracht\Transform.hpp(9): message : see reference to function template instantiation 'Matrix<double>::Matrix(unsigned int,unsigned int,Scalar)' being compiled
+          with
+          [
+              Scalar=double
+          ]
+D:\Users\Jordy\Desktop\LINAL\LINAL\LinalEindopdracht\LinalEindopdracht\Transform.hpp(15): message : see reference to class template instantiation 'Matrix<double>' being compiled
+  RenderObject.cpp
+D:\Users\Jordy\Desktop\LINAL\LINAL\LinalEindopdracht\LinalEindopdracht\RenderObject.cpp(10,40): warning C4244: 'argument': conversion from 'Scalar' to 'float', possible loss of data
+          with
+          [
+              Scalar=double
+          ]
+D:\Users\Jordy\Desktop\LINAL\LINAL\LinalEindopdracht\LinalEindopdracht\RenderObject.cpp(10,29): warning C4244: 'argument': conversion from 'Scalar' to 'float', possible loss of data
+          with
+          [
+              Scalar=double
+          ]
+D:\Users\Jordy\Desktop\LINAL\LINAL\LinalEindopdracht\LinalEindopdracht\RenderObject.cpp(19,55): warning C4244: 'argument': conversion from 'Scalar' to 'T', possible loss of data
+          with
+          [
+              Scalar=double
+          ]
+          and
+          [
+              T=float
+          ]
+D:\Users\Jordy\Desktop\LINAL\LINAL\LinalEindopdracht\LinalEindopdracht\RenderObject.cpp(19,35): warning C4244: 'argument': conversion from 'Scalar' to 'T', possible loss of data
+          with
+          [
+              Scalar=double
+          ]
+          and
+          [
+              T=float
+          ]
+D:\Users\Jordy\Desktop\LINAL\LINAL\LinalEindopdracht\LinalEindopdracht\RenderObject.cpp(23,51): warning C4244: 'argument': conversion from 'Scalar' to 'T', possible loss of data
+          with
+          [
+              Scalar=double
+          ]
+          and
+          [
+              T=float
+          ]
+D:\Users\Jordy\Desktop\LINAL\LINAL\LinalEindopdracht\LinalEindopdracht\RenderObject.cpp(23,33): warning C4244: 'argument': conversion from 'Scalar' to 'T', possible loss of data
+          with
+          [
+              Scalar=double
+          ]
+          and
+          [
+              T=float
+          ]
+D:\Users\Jordy\Desktop\LINAL\LINAL\LinalEindopdracht\LinalEindopdracht\Matrix.hpp(16,2): warning C4018: '<': signed/unsigned mismatch
+D:\Users\Jordy\Desktop\LINAL\LINAL\LinalEindopdracht\LinalEindopdracht\Matrix.hpp(11): message : while compiling class template member function 'Matrix<double>::Matrix(unsigned int,unsigned int,Scalar)'
+          with
+          [
+              Scalar=double
+          ]
+D:\Users\Jordy\Desktop\LINAL\LINAL\LinalEindopdracht\LinalEindopdracht\Transform.hpp(9): message : see reference to function template instantiation 'Matrix<double>::Matrix(unsigned int,unsigned int,Scalar)' being compiled
+          with
+          [
+              Scalar=double
+          ]
+D:\Users\Jordy\Desktop\LINAL\LINAL\LinalEindopdracht\LinalEindopdracht\Transform.hpp(15): message : see reference to class template instantiation 'Matrix<double>' being compiled
+  Scene.cpp
+D:\Users\Jordy\Desktop\LINAL\LINAL\LinalEindopdracht\LinalEindopdracht\Matrix.hpp(16,2): warning C4018: '<': signed/unsigned mismatch
+D:\Users\Jordy\Desktop\LINAL\LINAL\LinalEindopdracht\LinalEindopdracht\Matrix.hpp(11): message : while compiling class template member function 'Matrix<double>::Matrix(unsigned int,unsigned int,Scalar)'
+          with
+          [
+              Scalar=double
+          ]
+D:\Users\Jordy\Desktop\LINAL\LINAL\LinalEindopdracht\LinalEindopdracht\Transform.hpp(9): message : see reference to function template instantiation 'Matrix<double>::Matrix(unsigned int,unsigned int,Scalar)' being compiled
+          with
+          [
+              Scalar=double
+          ]
+D:\Users\Jordy\Desktop\LINAL\LINAL\LinalEindopdracht\LinalEindopdracht\Transform.hpp(15): message : see reference to class template instantiation 'Matrix<double>' being compiled
+  Generating Code...
   LinalEindopdracht.vcxproj -> D:\Users\Jordy\Desktop\LINAL\LINAL\LinalEindopdracht\x64\Debug\LinalEindopdracht.exe
