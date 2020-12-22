@@ -17,6 +17,13 @@ void Transform::setPosition(Vector2<double> position)
 	positionTranslate(renderObject->getVertices());
 }
 
+void Transform::setRotation(double rotation)
+{
+	this->rotation = rotation;
+
+	rotationTranslate(renderObject->getVertices());
+}
+
 void Transform::scaleTranslate(std::vector<Vector<double>>& vertices)
 {
 	/*Matrix<double> toOriginMatrix = Matrix<double>(3, 3);
@@ -80,4 +87,23 @@ void Transform::positionTranslate(std::vector<Vector<double>>& vertices)
 	pivot[0] = temp[0];
 	pivot[1] = temp[1];
 	pivot.popBack();
+}
+
+void Transform::rotationTranslate(std::vector<Vector<double>>& vertices)
+{
+	rotationMatrix = Matrix<double>(3, 3);
+	rotationMatrix(0, 0) = std::cos(this->rotation);
+	rotationMatrix(0, 1) = -std::sin(this->rotation);
+	rotationMatrix(1, 0) = std::sin(this->rotation);
+	rotationMatrix(1, 1) = std::cos(this->rotation);
+	rotationMatrix(2, 2) = 1;
+
+	for (Vector<double>& vertex : vertices)
+	{
+		vertex.push(1);
+		Vector<double> temp = this->rotationMatrix * vertex;
+		vertex[0] = temp[0];
+		vertex[1] = temp[1];
+		vertex.popBack();
+	}
 }

@@ -7,6 +7,9 @@
 //#include "Vector.hpp"
 #include "Edge.hpp"
 
+#define _USE_MATH_DEFINES // for C++
+#include <math.h>
+
 class RenderObject : public GameObject
 {
 public:
@@ -44,8 +47,9 @@ public:
 		this->pivot.push(400);
 		this->pivot.push(300);
 
+		this->setRotation(90 * M_PI / 180);
 		//this->setPosition(Vector2<double>(100, 100));
-		this->setScale(Vector2<double>(2, 2));
+		//this->setScale(Vector2<double>(2, 2));
 	}
 
 	std::vector<Vector<double>>& getVertices();

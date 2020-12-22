@@ -5,6 +5,7 @@
 #include "Vector2.hpp"
 
 #include <vector>
+#include <math.h>
 
 class RenderObject;
 
@@ -19,6 +20,7 @@ public:
 
 	void setScale(Vector2<double> scale);
 	void setPosition(Vector2<double> position);
+	void setRotation(double rotation);
 private:
 	Vector<double> position;
 	Vector<double> scale;
@@ -28,6 +30,8 @@ private:
 
 	Matrix<double> scaleMatrix;
 	Matrix<double> positionMatrix;
+	Matrix<double> rotationMatrix;
 	void scaleTranslate(std::vector<Vector<double>>& vertices);
 	void positionTranslate(std::vector<Vector<double>>& vertices);
+	void rotationTranslate(std::vector<Vector<double>>& vertices);
 };
