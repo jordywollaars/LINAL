@@ -19,16 +19,16 @@ public:
 		vertices = std::vector<Vector<double>>();
 		edges = std::vector<Edge<double>>();
 
-		vertices.push_back(Vector<double>(392.0, 44.0));
-		vertices.push_back(Vector<double>(491.0, 160.0));
-		vertices.push_back(Vector<double>(706.0, 160.0));
-		vertices.push_back(Vector<double>(517.0, 290.0));
-		vertices.push_back(Vector<double>(600, 500.0));
-		vertices.push_back(Vector<double>(395.0, 364.0));
-		vertices.push_back(Vector<double>(200.0, 500.0));
-		vertices.push_back(Vector<double>(264.0, 290.0));
-		vertices.push_back(Vector<double>(74.0, 160.0));
-		vertices.push_back(Vector<double>(319.0, 160.0));
+		vertices.push_back(Vector<double>(-8.0, -256.0));
+		vertices.push_back(Vector<double>(91.0, -140.0));
+		vertices.push_back(Vector<double>(306.0, -140.0));
+		vertices.push_back(Vector<double>(117.0, -10.0));
+		vertices.push_back(Vector<double>(200, 200.0));
+		vertices.push_back(Vector<double>(-5.0, 64.0));
+		vertices.push_back(Vector<double>(-200.0, 200.0));
+		vertices.push_back(Vector<double>(-136.0, -10.0));
+		vertices.push_back(Vector<double>(-326.0, -140.0));
+		vertices.push_back(Vector<double>(-81.0, -140.0));
 
 		edges.push_back(Edge<double>(vertices[0], vertices[1]));
 		edges.push_back(Edge<double>(vertices[1], vertices[2]));
@@ -44,7 +44,7 @@ public:
 		this->pivot.push(400);
 		this->pivot.push(300);
 
-		this->setPosition(Vector2<double>(100, 100));
+		//this->setPosition(Vector2<double>(100, 100));
 		this->setScale(Vector2<double>(2, 2));
 	}
 
