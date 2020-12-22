@@ -13,18 +13,19 @@ class Transform
 {
 public:
 	Transform(RenderObject* renderObject = nullptr) : renderObject{ renderObject } {
-		this->position = Vector<double>((unsigned)2);
-		this->scale = Vector<double>((unsigned)2);
+		this->position = Vector<double>((unsigned)3);
+		this->scale = Vector<double>((unsigned)3);
+		this->rotation = Vector<double>((unsigned)3);
 	};
 
 
 	void setScale(Vector3<double> scale);
 	void setPosition(Vector3<double> position);
-	void setRotation(double rotation);
+	void setRotation(Vector3<double> rotation);
 private:
 	Vector<double> position;
 	Vector<double> scale;
-	double rotation;
+	Vector<double> rotation;
 
 	RenderObject* renderObject;
 

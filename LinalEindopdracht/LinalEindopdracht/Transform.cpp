@@ -17,9 +17,9 @@ void Transform::setPosition(Vector3<double> position)
 	positionTranslate(renderObject->getVertices());
 }
 
-void Transform::setRotation(double rotation)
+void Transform::setRotation(Vector3<double> rotation)
 {
-	this->rotation = rotation;
+	this->rotation = Vector<double>(rotation.x, rotation.y, rotation.z);
 
 	rotationTranslate(renderObject->getVertices());
 }
@@ -96,12 +96,31 @@ void Transform::positionTranslate(std::vector<Vector<double>>& vertices)
 
 void Transform::rotationTranslate(std::vector<Vector<double>>& vertices)
 {
-	rotationMatrix = Matrix<double>(3, 3);
-	rotationMatrix(0, 0) = std::cos(this->rotation);
-	rotationMatrix(0, 1) = -std::sin(this->rotation);
-	rotationMatrix(1, 0) = std::sin(this->rotation);
-	rotationMatrix(1, 1) = std::cos(this->rotation);
-	rotationMatrix(2, 2) = 1;
+	Matrix<double> rotationMatrixX = Matrix<double>(4, 4);
+	rotationMatrixX(0, 0) = 1;
+	rotationMatrixX(1, 1) = std::cos(this->rotation[0]);
+	rotationMatrixX(1, 2) = -std::sin(this->rotation[0]);
+	rotationMatrixX(2, 1) = std::sin(this->rotation[0]);
+	rotationMatrixX(2, 2) = std::cos(this->rotation[0]);
+	rotationMatrixX(3, 3) = 1;
+
+	Matrix<double> rotationMatrixY = Matrix<double>(4, 4);
+	rotationMatrixY(0, 0) = std::cos(this->rotation[1]);
+	rotationMatrixY(0, 2) = std::sin(this->rotation[1]);
+	rotationMatrixY(1, 1) = 1;
+	rotationMatrixY(2, 0) = -std::sin(this->rotation[1]);
+	rotationMatrixY(2, 2) = std::cos(this->rotation[1]);
+	rotationMatrixY(3, 3) = 1;
+
+	Matrix<double> rotationMatrixZ = Matrix<double>(4, 4);
+	rotationMatrixZ(0, 0) = std::cos(this->rotation[2]);
+	rotationMatrixZ(0, 1) = -std::sin(this->rotation[2]);
+	rotationMatrixZ(1, 0) = std::sin(this->rotation[2]);
+	rotationMatrixZ(1, 1) = std::cos(this->rotation[2]);
+	rotationMatrixZ(2, 2) = 1;
+	rotationMatrixZ(3, 3) = 1;
+
+	this->rotationMatrix = rotationMatrixX * rotationMatrixY * rotationMatrixZ;
 
 	for (Vector<double>& vertex : vertices)
 	{
@@ -109,6 +128,7 @@ void Transform::rotationTranslate(std::vector<Vector<double>>& vertices)
 		Vector<double> temp = this->rotationMatrix * vertex;
 		vertex[0] = temp[0];
 		vertex[1] = temp[1];
+		vertex[2] = temp[2];
 		vertex.popBack();
 	}
 }

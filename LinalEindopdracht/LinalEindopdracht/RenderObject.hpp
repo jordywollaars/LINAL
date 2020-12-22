@@ -86,10 +86,12 @@ public:
 			vertex.print();
 		}
 
-		//this->setRotation(90 * M_PI / 180);
+		this->setScale(Vector3<double>(0.5, 0.5, 0.5));
+
+		double angleInRadians = 90 * M_PI / 180;
+		this->setRotation(Vector3<double>(0, 0, angleInRadians));
 		//this->pivot.print();
 		//this->setPosition(Vector3<double>(100, 100, 100));
-		this->setScale(Vector3<double>(0.5, 0.5, 0.5));
 		//this->pivot.print();
 	}
 

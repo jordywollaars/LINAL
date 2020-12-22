@@ -10,11 +10,11 @@ D:\Users\Jordy\Desktop\LINAL\LINAL\LinalEindopdracht\LinalEindopdracht\Transform
           [
               Scalar=double
           ]
-D:\Users\Jordy\Desktop\LINAL\LINAL\LinalEindopdracht\LinalEindopdracht\Transform.hpp(31): message : see reference to class template instantiation 'Matrix<double>' being compiled
+D:\Users\Jordy\Desktop\LINAL\LINAL\LinalEindopdracht\LinalEindopdracht\Transform.hpp(32): message : see reference to class template instantiation 'Matrix<double>' being compiled
 D:\Users\Jordy\Desktop\LINAL\LINAL\LinalEindopdracht\LinalEindopdracht\Vector.hpp(79,2): warning C4018: '<': signed/unsigned mismatch
 D:\Users\Jordy\Desktop\LINAL\LINAL\LinalEindopdracht\LinalEindopdracht\Vector.hpp(78): message : while compiling class template member function 'void Vector<double>::print(void)'
 D:\Users\Jordy\Desktop\LINAL\LINAL\LinalEindopdracht\LinalEindopdracht\RenderObject.hpp(86): message : see reference to function template instantiation 'void Vector<double>::print(void)' being compiled
-D:\Users\Jordy\Desktop\LINAL\LINAL\LinalEindopdracht\LinalEindopdracht\Transform.hpp(25): message : see reference to class template instantiation 'Vector<double>' being compiled
+D:\Users\Jordy\Desktop\LINAL\LINAL\LinalEindopdracht\LinalEindopdracht\Transform.hpp(26): message : see reference to class template instantiation 'Vector<double>' being compiled
 D:\Users\Jordy\Desktop\LINAL\LINAL\LinalEindopdracht\LinalEindopdracht\Vector.hpp(36,2): warning C4018: '<': signed/unsigned mismatch
 D:\Users\Jordy\Desktop\LINAL\LINAL\LinalEindopdracht\LinalEindopdracht\Vector.hpp(31): message : while compiling class template member function 'void Vector<double>::push(Scalar)'
           with
@@ -49,50 +49,6 @@ D:\Users\Jordy\Desktop\LINAL\LINAL\LinalEindopdracht\LinalEindopdracht\RenderObj
           [
               T=float
           ]
-D:\Users\Jordy\Desktop\LINAL\LINAL\LinalEindopdracht\LinalEindopdracht\RenderObject.cpp(43,84): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
-D:\Users\Jordy\Desktop\LINAL\LINAL\LinalEindopdracht\LinalEindopdracht\RenderObject.cpp(43,46): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
-D:\Users\Jordy\Desktop\LINAL\LINAL\LinalEindopdracht\LinalEindopdracht\RenderObject.cpp(52,90): warning C4244: 'argument': conversion from 'double' to 'T', possible loss of data
-          with
-          [
-              T=float
-          ]
-D:\Users\Jordy\Desktop\LINAL\LINAL\LinalEindopdracht\LinalEindopdracht\RenderObject.cpp(52,43): warning C4244: 'argument': conversion from 'double' to 'T', possible loss of data
-          with
-          [
-              T=float
-          ]
-D:\Users\Jordy\Desktop\LINAL\LINAL\LinalEindopdracht\LinalEindopdracht\RenderObject.cpp(56,88): warning C4244: 'argument': conversion from 'double' to 'T', possible loss of data
-          with
-          [
-              T=float
-          ]
-D:\Users\Jordy\Desktop\LINAL\LINAL\LinalEindopdracht\LinalEindopdracht\RenderObject.cpp(56,43): warning C4244: 'argument': conversion from 'double' to 'T', possible loss of data
-          with
-          [
-              T=float
-          ]
-D:\Users\Jordy\Desktop\LINAL\LINAL\LinalEindopdracht\LinalEindopdracht\RenderObject.cpp(72,84): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
-D:\Users\Jordy\Desktop\LINAL\LINAL\LinalEindopdracht\LinalEindopdracht\RenderObject.cpp(72,46): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
-D:\Users\Jordy\Desktop\LINAL\LINAL\LinalEindopdracht\LinalEindopdracht\RenderObject.cpp(81,90): warning C4244: 'argument': conversion from 'double' to 'T', possible loss of data
-          with
-          [
-              T=float
-          ]
-D:\Users\Jordy\Desktop\LINAL\LINAL\LinalEindopdracht\LinalEindopdracht\RenderObject.cpp(81,43): warning C4244: 'argument': conversion from 'double' to 'T', possible loss of data
-          with
-          [
-              T=float
-          ]
-D:\Users\Jordy\Desktop\LINAL\LINAL\LinalEindopdracht\LinalEindopdracht\RenderObject.cpp(85,88): warning C4244: 'argument': conversion from 'double' to 'T', possible loss of data
-          with
-          [
-              T=float
-          ]
-D:\Users\Jordy\Desktop\LINAL\LINAL\LinalEindopdracht\LinalEindopdracht\RenderObject.cpp(85,43): warning C4244: 'argument': conversion from 'double' to 'T', possible loss of data
-          with
-          [
-              T=float
-          ]
 D:\Users\Jordy\Desktop\LINAL\LINAL\LinalEindopdracht\LinalEindopdracht\Matrix.hpp(16,2): warning C4018: '<': signed/unsigned mismatch
 D:\Users\Jordy\Desktop\LINAL\LINAL\LinalEindopdracht\LinalEindopdracht\Matrix.hpp(11): message : while compiling class template member function 'Matrix<double>::Matrix(unsigned int,unsigned int,Scalar)'
           with
@@ -104,11 +60,11 @@ D:\Users\Jordy\Desktop\LINAL\LINAL\LinalEindopdracht\LinalEindopdracht\Transform
           [
               Scalar=double
           ]
-D:\Users\Jordy\Desktop\LINAL\LINAL\LinalEindopdracht\LinalEindopdracht\Transform.hpp(31): message : see reference to class template instantiation 'Matrix<double>' being compiled
+D:\Users\Jordy\Desktop\LINAL\LINAL\LinalEindopdracht\LinalEindopdracht\Transform.hpp(32): message : see reference to class template instantiation 'Matrix<double>' being compiled
 D:\Users\Jordy\Desktop\LINAL\LINAL\LinalEindopdracht\LinalEindopdracht\Vector.hpp(79,2): warning C4018: '<': signed/unsigned mismatch
 D:\Users\Jordy\Desktop\LINAL\LINAL\LinalEindopdracht\LinalEindopdracht\Vector.hpp(78): message : while compiling class template member function 'void Vector<double>::print(void)'
 D:\Users\Jordy\Desktop\LINAL\LINAL\LinalEindopdracht\LinalEindopdracht\RenderObject.hpp(86): message : see reference to function template instantiation 'void Vector<double>::print(void)' being compiled
-D:\Users\Jordy\Desktop\LINAL\LINAL\LinalEindopdracht\LinalEindopdracht\Transform.hpp(25): message : see reference to class template instantiation 'Vector<double>' being compiled
+D:\Users\Jordy\Desktop\LINAL\LINAL\LinalEindopdracht\LinalEindopdracht\Transform.hpp(26): message : see reference to class template instantiation 'Vector<double>' being compiled
 D:\Users\Jordy\Desktop\LINAL\LINAL\LinalEindopdracht\LinalEindopdracht\Vector.hpp(36,2): warning C4018: '<': signed/unsigned mismatch
 D:\Users\Jordy\Desktop\LINAL\LINAL\LinalEindopdracht\LinalEindopdracht\Vector.hpp(31): message : while compiling class template member function 'void Vector<double>::push(Scalar)'
           with
@@ -132,11 +88,11 @@ D:\Users\Jordy\Desktop\LINAL\LINAL\LinalEindopdracht\LinalEindopdracht\Transform
           [
               Scalar=double
           ]
-D:\Users\Jordy\Desktop\LINAL\LINAL\LinalEindopdracht\LinalEindopdracht\Transform.hpp(31): message : see reference to class template instantiation 'Matrix<double>' being compiled
+D:\Users\Jordy\Desktop\LINAL\LINAL\LinalEindopdracht\LinalEindopdracht\Transform.hpp(32): message : see reference to class template instantiation 'Matrix<double>' being compiled
 D:\Users\Jordy\Desktop\LINAL\LINAL\LinalEindopdracht\LinalEindopdracht\Vector.hpp(79,2): warning C4018: '<': signed/unsigned mismatch
 D:\Users\Jordy\Desktop\LINAL\LINAL\LinalEindopdracht\LinalEindopdracht\Vector.hpp(78): message : while compiling class template member function 'void Vector<double>::print(void)'
 D:\Users\Jordy\Desktop\LINAL\LINAL\LinalEindopdracht\LinalEindopdracht\RenderObject.hpp(86): message : see reference to function template instantiation 'void Vector<double>::print(void)' being compiled
-D:\Users\Jordy\Desktop\LINAL\LINAL\LinalEindopdracht\LinalEindopdracht\Transform.hpp(25): message : see reference to class template instantiation 'Vector<double>' being compiled
+D:\Users\Jordy\Desktop\LINAL\LINAL\LinalEindopdracht\LinalEindopdracht\Transform.hpp(26): message : see reference to class template instantiation 'Vector<double>' being compiled
 D:\Users\Jordy\Desktop\LINAL\LINAL\LinalEindopdracht\LinalEindopdracht\Vector.hpp(36,2): warning C4018: '<': signed/unsigned mismatch
 D:\Users\Jordy\Desktop\LINAL\LINAL\LinalEindopdracht\LinalEindopdracht\Vector.hpp(31): message : while compiling class template member function 'void Vector<double>::push(Scalar)'
           with
@@ -152,7 +108,7 @@ D:\Users\Jordy\Desktop\LINAL\LINAL\LinalEindopdracht\LinalEindopdracht\RenderObj
 D:\Users\Jordy\Desktop\LINAL\LINAL\LinalEindopdracht\LinalEindopdracht\Matrix.hpp(93,2): warning C4018: '<': signed/unsigned mismatch
 D:\Users\Jordy\Desktop\LINAL\LINAL\LinalEindopdracht\LinalEindopdracht\Matrix.hpp(85): message : while compiling class template member function 'Vector<double> Matrix<double>::operator *(Vector<double> &)'
 D:\Users\Jordy\Desktop\LINAL\LINAL\LinalEindopdracht\LinalEindopdracht\Transform.cpp(60): message : see reference to function template instantiation 'Vector<double> Matrix<double>::operator *(Vector<double> &)' being compiled
-D:\Users\Jordy\Desktop\LINAL\LINAL\LinalEindopdracht\LinalEindopdracht\Transform.hpp(31): message : see reference to class template instantiation 'Matrix<double>' being compiled
+D:\Users\Jordy\Desktop\LINAL\LINAL\LinalEindopdracht\LinalEindopdracht\Transform.hpp(32): message : see reference to class template instantiation 'Matrix<double>' being compiled
 D:\Users\Jordy\Desktop\LINAL\LINAL\LinalEindopdracht\LinalEindopdracht\Matrix.hpp(16,2): warning C4018: '<': signed/unsigned mismatch
 D:\Users\Jordy\Desktop\LINAL\LINAL\LinalEindopdracht\LinalEindopdracht\Matrix.hpp(11): message : while compiling class template member function 'Matrix<double>::Matrix(unsigned int,unsigned int,Scalar)'
           with
@@ -167,7 +123,7 @@ D:\Users\Jordy\Desktop\LINAL\LINAL\LinalEindopdracht\LinalEindopdracht\Transform
 D:\Users\Jordy\Desktop\LINAL\LINAL\LinalEindopdracht\LinalEindopdracht\Vector.hpp(79,2): warning C4018: '<': signed/unsigned mismatch
 D:\Users\Jordy\Desktop\LINAL\LINAL\LinalEindopdracht\LinalEindopdracht\Vector.hpp(78): message : while compiling class template member function 'void Vector<double>::print(void)'
 D:\Users\Jordy\Desktop\LINAL\LINAL\LinalEindopdracht\LinalEindopdracht\RenderObject.hpp(86): message : see reference to function template instantiation 'void Vector<double>::print(void)' being compiled
-D:\Users\Jordy\Desktop\LINAL\LINAL\LinalEindopdracht\LinalEindopdracht\Transform.hpp(25): message : see reference to class template instantiation 'Vector<double>' being compiled
+D:\Users\Jordy\Desktop\LINAL\LINAL\LinalEindopdracht\LinalEindopdracht\Transform.hpp(26): message : see reference to class template instantiation 'Vector<double>' being compiled
 D:\Users\Jordy\Desktop\LINAL\LINAL\LinalEindopdracht\LinalEindopdracht\Vector.hpp(65,2): warning C4018: '<': signed/unsigned mismatch
 D:\Users\Jordy\Desktop\LINAL\LINAL\LinalEindopdracht\LinalEindopdracht\Vector.hpp(60): message : while compiling class template member function 'void Vector<double>::popBack(void)'
 D:\Users\Jordy\Desktop\LINAL\LINAL\LinalEindopdracht\LinalEindopdracht\Transform.cpp(64): message : see reference to function template instantiation 'void Vector<double>::popBack(void)' being compiled
