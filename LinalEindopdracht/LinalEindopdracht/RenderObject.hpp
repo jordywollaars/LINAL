@@ -10,7 +10,7 @@
 class RenderObject : public GameObject
 {
 public:
-	RenderObject() {}
+	RenderObject() : GameObject(this) {}
 
 	virtual void render(sf::RenderWindow& window);
 
@@ -40,8 +40,19 @@ public:
 		edges.push_back(Edge<double>(vertices[7], vertices[8]));
 		edges.push_back(Edge<double>(vertices[8], vertices[9]));
 		edges.push_back(Edge<double>(vertices[9], vertices[0]));
+
+		this->pivot.push(400);
+		this->pivot.push(300);
+
+		this->setPosition(Vector2<double>(100, 100));
+		this->setScale(Vector2<double>(2, 2));
 	}
+
+	std::vector<Vector<double>>& getVertices();
+	Vector<double>& getPivot();
 private:
 	std::vector<Vector<double>> vertices;
 	std::vector<Edge<double>> edges;
+
+	Vector<double> pivot;
 };

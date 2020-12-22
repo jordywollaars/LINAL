@@ -83,21 +83,21 @@ public:
 	//Matrix-Vector Operations
 	Vector<Scalar> operator*(Vector<Scalar>& other)
 	{
-		Matrix multiply(this->rowSize, other.getColSize(), NULL);
+		Vector<Scalar> multiply = Vector<Scalar>(other.size(), true);
 		if (this->colSize == other.size())
 		{
 			unsigned i, j, k;
 			Scalar temp = NULL;
 			for (i = 0; i < this->rowSize; i++)
 			{
-				for (j = 0; j < other.getColSize(); j++)
+				for (j = 0; j < other.size(); j++)
 				{
 					temp = NULL;
 					for (k = 0; k < this->colSize; k++)
 					{
 						temp += this->matrix[i][k] * other[k];
 					}
-					multiply(i, j) = temp;
+					multiply[i] = temp;
 				}
 			}
 
@@ -171,7 +171,7 @@ public:
 		return this->matrix[row][col];
 	}
 
-	void print() const
+	void print()
 	{
 		std::cout << "Matrix: " << std::endl;
 		for (unsigned i = 0; i < this->rowSize; i++)

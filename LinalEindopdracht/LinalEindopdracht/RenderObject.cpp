@@ -27,3 +27,14 @@ void RenderObject::render(sf::RenderWindow& window)
 		window.draw(edgeLine, 2, sf::Lines);
 	}
 }
+
+std::vector<Vector<double>>& RenderObject::getVertices()
+{
+	return this->vertices;
+}
+
+Vector<double>& RenderObject::getPivot()
+{
+	this->pivot.print();
+	return this->pivot;
+}

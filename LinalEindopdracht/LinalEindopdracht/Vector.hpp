@@ -5,26 +5,26 @@
 template<class Scalar>
 struct Vector {
 public:
-	Vector(Scalar x = 0.0, Scalar y = 0.0)
+	Vector(Scalar x, Scalar y)
 	{
-		vector = new Scalar[2];
-		this->capacity = 2;
+		vector = new Scalar[4];
+		this->capacity = 4;
 		this->current = 2;
 
 		this->vector[0] = x;
 		this->vector[1] = y;
 	}
-	/*Vector(Vector& other)
+	Vector(unsigned int size = 1, bool full = false)
 	{
-		vector = new Scalar[other.getCapacity()];
-		this->capacity = other.getCapacity();
-		this->current = other.size();
+		vector = new Scalar[size];
+		this->capacity = size;
+		this->current = 0;
 
-		for (int i = 0; i < this->capacity; i++)
+		if (full)
 		{
-			this->vector[i] = other[i];
+			this->current = size;
 		}
-	}*/
+	}
 
 	void push(Scalar data)
 	{
@@ -55,6 +55,22 @@ public:
 			this->vector[index] = this->data;
 		}
 	}
+	void popBack()
+	{
+		if (this->current > 0)
+		{
+			Scalar* temp = new Scalar[this->capacity];
+
+			for (int i = 0; i < this->capacity - 1; i++)
+			{
+				temp[i] = vector[i];
+			}
+			this->capacity -= 1;
+			vector = temp;
+
+			current--;
+		}
+	}
 	int size() const { return this->current; }
 	int getCapacity() const { return this->capacity; }
 	void print()
@@ -76,7 +92,7 @@ public:
 		{
 			temp[i] = val;
 		}
-		delete this->vector;
+		//delete[] vector;
 		this->vector = temp;
 		this->current = n;
 	}
@@ -101,7 +117,7 @@ public:
 		return sum;
 	}
 
-	Vector& operator+=(Vector const& other)
+	Vector& operator+=(Vector other)
 	{
 		for (unsigned int i = 0; i < current; i++)
 		{
@@ -121,7 +137,7 @@ public:
 		return subtract;
 	}
 
-	Vector& operator-=(Vector const& other)
+	Vector& operator-=(Vector other)
 	{
 		for (unsigned int i = 0; i < current; i++)
 		{
@@ -141,7 +157,7 @@ public:
 		return multiply;
 	}
 
-	Vector& operator*=(Vector const& other)
+	Vector& operator*=(Vector other)
 	{
 		for (unsigned int i = 0; i < current; i++)
 		{
@@ -161,7 +177,7 @@ public:
 		return divide;
 	}
 
-	Vector& operator/=(Vector const& other)
+	Vector& operator/=(Vector other)
 	{
 		for (unsigned int i = 0; i < current; i++)
 		{

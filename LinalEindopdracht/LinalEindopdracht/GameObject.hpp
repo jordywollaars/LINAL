@@ -2,10 +2,12 @@
 
 #include "Transform.hpp"
 
+class RenderObject;
+
 class GameObject : public Transform
 {
 public:
-	GameObject(){}
+	GameObject(RenderObject* renderObject = nullptr) : Transform(renderObject) {}
 
 	virtual void update() {};
 };

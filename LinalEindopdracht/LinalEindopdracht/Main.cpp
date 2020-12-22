@@ -26,20 +26,23 @@ int main() {
 	{
 		window.clear(sf::Color(0, 0, 0, 255));
 
-		sf::Event event;
+		/*sf::Event event;
 		while (window.pollEvent(event))
 		{
 			if (event.type == sf::Event::Closed)
 			{
 				window.close();
 			}
-		}
+		}*/
 
 		scene->update();
 		scene->render(window);
 
 		window.display();
 	}
+
+	delete scene;
+	delete renderObject;
 
 	return 0;
 }

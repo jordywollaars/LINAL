@@ -153,6 +153,7 @@
     <ClCompile Include="Matrix.hpp" />
     <ClCompile Include="RenderObject.cpp" />
     <ClCompile Include="Scene.cpp" />
+    <ClCompile Include="Transform.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="openal32.dll">
