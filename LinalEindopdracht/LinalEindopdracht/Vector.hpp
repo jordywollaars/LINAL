@@ -5,14 +5,15 @@
 template<class Scalar>
 struct Vector {
 public:
-	Vector(Scalar x, Scalar y)
+	Vector(Scalar x, Scalar y, Scalar z)
 	{
 		vector = new Scalar[4];
 		this->capacity = 4;
-		this->current = 2;
+		this->current = 3;
 
 		this->vector[0] = x;
 		this->vector[1] = y;
+		this->vector[2] = z;
 	}
 	Vector(unsigned int size = 1, bool full = false)
 	{

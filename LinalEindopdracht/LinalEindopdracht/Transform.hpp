@@ -18,8 +18,8 @@ public:
 	};
 
 
-	void setScale(Vector2<double> scale);
-	void setPosition(Vector2<double> position);
+	void setScale(Vector3<double> scale);
+	void setPosition(Vector3<double> position);
 	void setRotation(double rotation);
 private:
 	Vector<double> position;
