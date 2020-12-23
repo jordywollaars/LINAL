@@ -47,6 +47,39 @@ void RenderObject::render(sf::RenderWindow& window)
 		}
 	}
 
+	std::vector<sf::Color> colors{
+		{255, 0, 0, 255},
+		{ 0,255,0,255 },
+		{ 0,0,255,255 },
+	};
+
+	for (int i = 1; i < 4; i++)
+	{
+		Vector3<double> center = this->getPivot();
+		Vector3<double> origin = center + this->localAxis[0];
+		Vector3<double> scaledUpAxis = this->localAxis[i] * 45;
+		Vector3<double> dir = center + scaledUpAxis;
+
+		begin = origin.getPerspectiveCoordinate(pm);
+		end = dir.getPerspectiveCoordinate(pm);
+
+		if ((begin.w > 0) && (end.w > 0)) {
+			sf::Vertex edgeLine[]{
+				{
+					sf::Vector2f(nulpuntCanvasX + (int)(begin.x / begin.w * canvastWidth / begin.w),
+								 nulpuntCanvasY - (int)(begin.y / begin.w * canvastHeight / begin.w)),
+					colors[i-1]
+				},
+				{
+					sf::Vector2f(nulpuntCanvasX + (int)(end.x / end.w * canvastWidth / end.w),
+								 nulpuntCanvasY - (int)(end.y / end.w * canvastHeight / end.w)),
+					colors[i - 1]
+				}
+			};
+			window.draw(edgeLine, 2, sf::Lines);
+		}
+	}
+
 	////Front
 	//double offsetx = 0;
 	//double offsety = 0;
@@ -86,9 +119,9 @@ void RenderObject::render(sf::RenderWindow& window)
 	//	sf::Color color(255, 255, 255, 255);
 	//	shape.setFillColor(color);
 	//	shape.setPosition(offsetx + vertex.z, offsety + vertex.y);
-
-		window.draw(shape);
-	}
+	//
+	//	window.draw(shape);
+	//}
 
 	//for (auto edge : edges)
 	//{
@@ -106,8 +139,8 @@ void RenderObject::render(sf::RenderWindow& window)
 	//}
 
 	//Top x-z-
-	offsetx = 150;
-	offsety = 250;
+	//offsetx = 150;
+	//offsety = 250;
 
 	//for (auto vertex : vertices)
 	//{
@@ -115,9 +148,9 @@ void RenderObject::render(sf::RenderWindow& window)
 	//	sf::Color color(255, 255, 255, 255);
 	//	shape.setFillColor(color);
 	//	shape.setPosition(offsetx + vertex.x, offsety + vertex.z);
-
-		window.draw(shape);
-	}
+	//
+	//	window.draw(shape);
+	//}
 
 	//for (auto edge : edges)
 	//{
@@ -137,52 +170,52 @@ void RenderObject::render(sf::RenderWindow& window)
 
 void RenderObject::setShipRenderObject()
 {
-	vertices = std::vector<Vector<double>>();
+	vertices = std::vector<Vector3<double>>();
 	edges = std::vector<Edge<double>>();
 
 	//Hull
 
 	//Ring 1
-	vertices.push_back(Vector<double>(-0.620761, 0.148589, -4.603570));
-	vertices.push_back(Vector<double>(-0.620761, -0.148589, -4.603570));
-	vertices.push_back(Vector<double>(0.635302, 0.148589, -4.603570));
-	vertices.push_back(Vector<double>(0.635302, -0.148589, -4.603570));
+	vertices.push_back(Vector3<double>(-0.620761, 0.148589, -4.603570));
+	vertices.push_back(Vector3<double>(-0.620761, -0.148589, -4.603570));
+	vertices.push_back(Vector3<double>(0.635302, 0.148589, -4.603570));
+	vertices.push_back(Vector3<double>(0.635302, -0.148589, -4.603570));
 
 	//Ring 2
-	vertices.push_back(Vector<double>(-0.806886, 0.275101, -1.718086));
-	vertices.push_back(Vector<double>(-0.806886, -0.370099, -1.745406));
-	vertices.push_back(Vector<double>(0.821426, 0.275101, -1.718086));
-	vertices.push_back(Vector<double>(0.821426, -0.370099, -1.745406));
+	vertices.push_back(Vector3<double>(-0.806886, 0.275101, -1.718086));
+	vertices.push_back(Vector3<double>(-0.806886, -0.370099, -1.745406));
+	vertices.push_back(Vector3<double>(0.821426, 0.275101, -1.718086));
+	vertices.push_back(Vector3<double>(0.821426, -0.370099, -1.745406));
 
 	//Ring 3
-	vertices.push_back(Vector<double>(-0.838768, 0.503040, -1.283142));
-	vertices.push_back(Vector<double>(-0.838768, -0.408043, -1.255822));
-	vertices.push_back(Vector<double>(0.853308, 0.503040, -1.283142));
-	vertices.push_back(Vector<double>(0.853308, -0.408043, -1.255822));
+	vertices.push_back(Vector3<double>(-0.838768, 0.503040, -1.283142));
+	vertices.push_back(Vector3<double>(-0.838768, -0.408043, -1.255822));
+	vertices.push_back(Vector3<double>(0.853308, 0.503040, -1.283142));
+	vertices.push_back(Vector3<double>(0.853308, -0.408043, -1.255822));
 
 	//Ring 4
-	vertices.push_back(Vector<double>(-0.947424, 0.537356, 0.412728));
-	vertices.push_back(Vector<double>(-0.947424, -0.537356, 0.412728));
-	vertices.push_back(Vector<double>(0.961964, 0.537356, 0.412728));
-	vertices.push_back(Vector<double>(0.961964, -0.537356, 0.412728));
+	vertices.push_back(Vector3<double>(-0.947424, 0.537356, 0.412728));
+	vertices.push_back(Vector3<double>(-0.947424, -0.537356, 0.412728));
+	vertices.push_back(Vector3<double>(0.961964, 0.537356, 0.412728));
+	vertices.push_back(Vector3<double>(0.961964, -0.537356, 0.412728));
 
 	//Ring 5
-	vertices.push_back(Vector<double>(-0.947424, 0.591276, 1.108456));
-	vertices.push_back(Vector<double>(-0.947424, -0.591276, 1.108456));
-	vertices.push_back(Vector<double>(0.961964, 0.591276, 1.108456));
-	vertices.push_back(Vector<double>(0.961964, -0.591276, 1.108456));
-
-	//Left Wing
-	vertices.push_back(Vector<double>(-3.178952, 0.087054, -0.193291));
-	vertices.push_back(Vector<double>(-3.178952, -0.087054, -0.193291));
-	vertices.push_back(Vector<double>(-0.992730, 0.399007, 3.688400));
-	vertices.push_back(Vector<double>(-0.992730, -0.399006, 3.688404));
-
-	//Right Wing
-	vertices.push_back(Vector<double>(3.135330, 0.087054, -0.193291));
-	vertices.push_back(Vector<double>(3.135330, -0.087054, -0.193291));
-	vertices.push_back(Vector<double>(1.007270, 0.399007, 3.688404));
-	vertices.push_back(Vector<double>(1.007270, -0.399006, 3.688404));
+	vertices.push_back(Vector3<double>(-0.947424, 0.591276, 1.108456));
+	vertices.push_back(Vector3<double>(-0.947424, -0.591276, 1.108456));
+	vertices.push_back(Vector3<double>(0.961964, 0.591276, 1.108456));
+	vertices.push_back(Vector3<double>(0.961964, -0.591276, 1.108456));
+							 
+	//Left Wing				 
+	vertices.push_back(Vector3<double>(-3.178952, 0.087054, -0.193291));
+	vertices.push_back(Vector3<double>(-3.178952, -0.087054, -0.193291));
+	vertices.push_back(Vector3<double>(-0.992730, 0.399007, 3.688400));
+	vertices.push_back(Vector3<double>(-0.992730, -0.399006, 3.688404));
+							 
+	//Right Wing			 
+	vertices.push_back(Vector3<double>(3.135330, 0.087054, -0.193291));
+	vertices.push_back(Vector3<double>(3.135330, -0.087054, -0.193291));
+	vertices.push_back(Vector3<double>(1.007270, 0.399007, 3.688404));
+	vertices.push_back(Vector3<double>(1.007270, -0.399006, 3.688404));
 
 	//Ring 1
 	edges.push_back(Edge<double>(vertices[0], vertices[1]));
@@ -268,16 +301,16 @@ void RenderObject::setShipRenderObject()
 	double multiplier = 20;
 	for (auto vertex : vertices)
 	{
-		vertex[0] = vertex[0] * multiplier;
-		vertex[1] = vertex[1] * multiplier;
-		vertex[2] = vertex[2] * multiplier;
+		vertex.x = vertex.x * multiplier;
+		vertex.y = vertex.y * multiplier;
+		vertex.z = vertex.z * multiplier;
 		//vertex.print();
 	}
 
-	int pivotValue = 250;
+	/*int pivotValue = 250;
 	this->pivot.push(pivotValue);
 	this->pivot.push(pivotValue);
-	this->pivot.push(pivotValue);
+	this->pivot.push(pivotValue);*/
 
 	//this->setScale(Vector3<double>(0.5, 0.5, 0.5));
 
@@ -294,6 +327,11 @@ void RenderObject::transform(Matrix<double> matrix)
 	{
 		vertex.transform(matrix);
 	}
+
+	/*for (Vector3<double>& dot : localAxis)
+	{
+		dot.transform(matrix);
+	}*/
 
 	pivot.transform(matrix);
 }
@@ -321,4 +359,34 @@ Vector3<double>& RenderObject::getPivot()
 		zTotal / vertices.size());
 
 	return tdp;
+}
+
+Vector3<double> RenderObject::getLocalXAxis()
+{
+	Vector3<double> XAxis = Vector3<double>(
+		vertices[0].x - vertices[1].x,
+		vertices[0].y - vertices[1].y,
+		vertices[0].z - vertices[1].z);
+
+	return XAxis + this->getPivot();
+}
+
+Vector3<double> RenderObject::getLocalYAxis()
+{
+	Vector3<double> YAxis = Vector3<double>(
+		vertices[0].x - vertices[2].x,
+		vertices[0].y - vertices[2].y,
+		vertices[0].z - vertices[2].z);
+
+	return YAxis;
+}
+
+Vector3<double> RenderObject::getLocalZAxis()
+{
+	Vector3<double> ZAxis = Vector3<double>(
+		vertices[0].x - vertices[3].x,
+		vertices[0].y - vertices[3].y,
+		vertices[0].z - vertices[3].z);
+
+	return ZAxis;
 }

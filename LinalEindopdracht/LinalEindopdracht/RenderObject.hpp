@@ -10,7 +10,14 @@
 class RenderObject : public GameObject
 {
 public:
-	RenderObject() : GameObject(this) {}
+	RenderObject() : GameObject(this) {
+		localAxis = std::vector<Vector3<double>>{
+			Vector3<double>{0, 0, 0},
+			Vector3<double>{1, 0, 0},
+			Vector3<double>{0, 1, 0},
+			Vector3<double>{0, 0, 1}
+		};
+	}
 
 	virtual void render(sf::RenderWindow& window);
 
@@ -94,9 +101,14 @@ public:
 
 	std::vector<Vector3<double>>& getVertices();
 	Vector3<double>& getPivot();
+
+	Vector3<double> getLocalXAxis();
+	Vector3<double> getLocalYAxis();
+	Vector3<double> getLocalZAxis();
 private:
 	std::vector<Vector3<double>> vertices;
 	std::vector<Edge<double>> edges;
 
+	std::vector<Vector3<double>> localAxis;
 	Vector3<double> pivot;
 };

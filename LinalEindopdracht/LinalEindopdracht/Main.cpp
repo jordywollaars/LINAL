@@ -20,8 +20,8 @@ int main() {
 
 	Scene* scene = new Scene();
 	RenderObject* renderObject = new RenderObject();
-	//renderObject->setStarRenderObject();
-	renderObject->setShipRenderObject();
+	renderObject->setStarRenderObject();
+	//renderObject->setShipRenderObject();
 	scene->add(renderObject);
 
 	for (int i = 0; i < 35; i++)
@@ -100,13 +100,30 @@ int main() {
 				}
 
 				//Rotating
-				/*if (event.key.code == sf::Keyboard::Key::R)
+				if (event.key.code == sf::Keyboard::Key::R)
 				{
-					Matrix<double> toOrigin = Matrix<double>::getTranslationMatrix(renderObject->getPivot().x, renderObject->getPivot().y, renderObject->getPivot().z);
-					Matrix<double> upscaleMatrix = Matrix<double>::getScalingMatrix(1.1, 1.1, 1.1);
+					Vector3<double> localXAxis = renderObject->getLocalXAxis();
+					localXAxis.normalize();
+
+					// translatiematrix naar de oorsprong
+					Matrix<double> to = Matrix<double>::getTranslationMatrix(renderObject->getPivot().x, renderObject->getPivot().y, renderObject->getPivot().z);
+					// rotatiematrix om de y-as naar het xy-vlak
+					Matrix<double> m1 = Matrix<double>::getRotationMatrixM1(localXAxis);
+					// rotatiematrix om de z-as naar de x-as
+					Matrix<double> m2 = Matrix<double>::getRotationMatrixM2(localXAxis);
+					// rotatie om de x-as
+					Matrix<double> m3 = Matrix<double>::getRotationMatrixX(1);
+					// rotatie om de z-as terug
+					Matrix<double> m4 = Matrix<double>::getRotationMatrixM4(localXAxis);
+					// rotatie om de y-as terug
+					Matrix<double> m5 = Matrix<double>::getRotationMatrixM5(localXAxis);
+					// translatiematrix "terug"
 					Matrix<double> back = Matrix<double>::getTranslationMatrix(-renderObject->getPivot().x, -renderObject->getPivot().y, -renderObject->getPivot().z);
-					renderObject->transform(toOrigin * upscaleMatrix * back);
-				}*/
+					// vermenigvuldig alle matrices
+					Matrix<double> m = to * m1 * m2 * m3 * m4 * m5 * back;
+
+					renderObject->transform(m);
+				}
 			}
 		}
 

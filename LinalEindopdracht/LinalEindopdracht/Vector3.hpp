@@ -13,11 +13,12 @@ public:
 	Scalar z = 0;
 	Scalar w = 1;
 
-	Vector3(Scalar x = 0.0, Scalar y = 0.0, Scalar z = 0.0)
+	Vector3(Scalar x = 0.0, Scalar y = 0.0, Scalar z = 0.0, Scalar w = 1.0)
 	{
 		this->x = x;
 		this->y = y;
 		this->z = z;
+		this->w = w;
 	}
 
 	void transform(Matrix<Scalar> m)
@@ -45,11 +46,12 @@ public:
 		return tdp;
 	}
 	
-	/*Vector3 operator+(Vector3 const& other) const {
-		return { x + other.x, y + other.y };
+	Vector3 operator+(Vector3 const& other) const {
+		
+		return Vector3<Scalar>( x + other.x, y + other.y , z + other.z, w + other.w);
 	}
 
-	Vector3& operator+=(Vector3 const& other) {
+	/*Vector3& operator+=(Vector3 const& other) {
 		x += other.x;
 		y += other.y;
 		return *this;
@@ -84,17 +86,18 @@ public:
 		y /= other.y;
 		return *this;
 	}
+	*/
 
 	Vector3 operator*(Scalar scalar) const {
-		return { x * scalar, y * scalar };
+		return { x * scalar, y * scalar, z * scalar };
 	}
-
 	Vector3& operator*=(Scalar scalar) {
 		x *= scalar;
 		y *= scalar;
+		z *= scalar;
 		return *this;
 	}
-
+	/*
 	Vector3 operator/(Scalar scalar) const {
 		return { x / scalar, y / scalar };
 	}

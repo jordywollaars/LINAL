@@ -24,6 +24,8 @@ ipch/
 *.db-wal
 
 LinalEindopdracht/x64/
+LinalEindopdracht/x64/Debug/*.exe
+LinalEindopdracht/x64/Debug/*.ilk
 
 LinalEindopdracht/LinalEindopdracht/x64/
 
