@@ -74,17 +74,17 @@ public:
 		edges.push_back(Edge<double>(vertices[8], vertices[18]));
 		edges.push_back(Edge<double>(vertices[9], vertices[19]));
 
-		this->pivot = Vector3<double>(0, 0, 0);
+		//this->pivot = Vector3<double>(0, 0, 0);
 
 		/*for (auto vertex : vertices)
 		{
 			vertex.print();
 		}*/
 
-		this->setPosition(Vector3<double>(200, 200, 200));
+		/*this->setPosition(Vector3<double>(200, 200, 200));
 		this->setScale(Vector3<double>(0.5, 0.5, 0.5));
 
-		this->setRotation(Vector3<double>(90, 0, 0));
+		this->setRotation(Vector3<double>(90, 0, 0));*/
 		//this->pivot.print();
 		//this->pivot.print();
 	}

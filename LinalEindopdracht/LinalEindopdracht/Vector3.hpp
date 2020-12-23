@@ -32,6 +32,18 @@ public:
 		this->z = z;
 		this->w = w;
 	}
+
+	Vector3 getPerspectiveCoordinate(Matrix<Scalar> m) 
+	{
+		Vector3<Scalar> tdp = Vector3<Scalar>(0, 0, 0);
+
+		tdp.x = m(0, 0) * this->x + m(0, 1) * this->y + m(0, 2) * this->z + m(0, 3) * this->w;
+		tdp.y = m(1, 0) * this->x + m(1, 1) * this->y + m(1, 2) * this->z + m(1, 3) * this->w;
+		tdp.z = m(2, 0) * this->x + m(2, 1) * this->y + m(2, 2) * this->z + m(2, 3) * this->w;
+		tdp.w = m(3, 0) * this->x + m(3, 1) * this->y + m(3, 2) * this->z + m(3, 3) * this->w;
+
+		return tdp;
+	}
 	
 	/*Vector3 operator+(Vector3 const& other) const {
 		return { x + other.x, y + other.y };

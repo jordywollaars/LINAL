@@ -23,6 +23,13 @@ int main() {
 	renderObject->setStarRenderObject();
 	scene->add(renderObject);
 
+	for (int i = 0; i < 35; i++)
+	{
+
+		Matrix<double> translationMatrixNegZ = Matrix<double>::getTranslationMatrix(.0, .0, -1.0 * 10);
+		renderObject->transform(translationMatrixNegZ);
+	}
+
 	while (window.isOpen())
 	{
 		window.clear(sf::Color(0, 0, 0, 255));
@@ -70,7 +77,7 @@ int main() {
 
 				if (event.key.code == sf::Keyboard::Key::Q)
 				{
-					Matrix<double> translationMatrixNegZ = Matrix<double>::getTranslationMatrix(.0, .0, 1.0 * 10);
+					Matrix<double> translationMatrixNegZ = Matrix<double>::getTranslationMatrix(.0, .0, -1.0 * 10);
 					renderObject->transform(translationMatrixNegZ);
 				}
 
@@ -90,6 +97,15 @@ int main() {
 					Matrix<double> back = Matrix<double>::getTranslationMatrix(-renderObject->getPivot().x, -renderObject->getPivot().y, -renderObject->getPivot().z);
 					renderObject->transform(toOrigin * downscaleMatrix * back);
 				}
+
+				//Rotating
+				/*if (event.key.code == sf::Keyboard::Key::R)
+				{
+					Matrix<double> toOrigin = Matrix<double>::getTranslationMatrix(renderObject->getPivot().x, renderObject->getPivot().y, renderObject->getPivot().z);
+					Matrix<double> upscaleMatrix = Matrix<double>::getScalingMatrix(1.1, 1.1, 1.1);
+					Matrix<double> back = Matrix<double>::getTranslationMatrix(-renderObject->getPivot().x, -renderObject->getPivot().y, -renderObject->getPivot().z);
+					renderObject->transform(toOrigin * upscaleMatrix * back);
+				}*/
 			}
 		}
 
