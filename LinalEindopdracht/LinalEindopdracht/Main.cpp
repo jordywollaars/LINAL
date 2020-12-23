@@ -19,7 +19,8 @@ int main() {
 
 	Scene* scene = new Scene();
 	RenderObject* renderObject = new RenderObject();
-	renderObject->setStarRenderObject();
+	//renderObject->setStarRenderObject();
+	renderObject->setShipRenderObject();
 	scene->add(renderObject);
 		
 	while (window.isOpen())

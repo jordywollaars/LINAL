@@ -95,6 +95,8 @@ public:
 		//this->pivot.print();
 	}
 
+	void setShipRenderObject();
+
 	std::vector<Vector<double>>& getVertices();
 	Vector<double>& getPivot();
 private:
