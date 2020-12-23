@@ -1,23 +1,23 @@
 #pragma once
 
-#include "Vector.hpp"
+#include "Vector3.hpp"
 
 template<class Scalar>
 struct Edge {
 public:
-	Edge(Vector<Scalar>& start, Vector<Scalar>& end) : start{ start }, end{ end }
+	Edge(Vector3<Scalar>& start, Vector3<Scalar>& end) : start{ start }, end{ end }
 	{
 	}
 
-	Vector<Scalar>& getStart()
+	Vector3<Scalar>& getStart()
 	{
 		return this->start;
 	}
-	Vector<Scalar>& getEnd()
+	Vector3<Scalar>& getEnd()
 	{
 		return this->end;
 	}
 private:
-	Vector<Scalar>& start;
-	Vector<Scalar>& end;
+	Vector3<Scalar>& start;
+	Vector3<Scalar>& end;
 };

@@ -1,9 +1,14 @@
 #pragma once
 
-#include "Vector.hpp"
 #include <iostream>
+#include <vector>
 
 //using namespace std;
+
+#define _USE_MATH_DEFINES // for C++
+#include <math.h>
+
+#include "Vector3.hpp"
 
 template<class Scalar>
 struct Matrix {
@@ -17,37 +22,6 @@ public:
 		{
 			matrix[i].resize(colSize, initial);
 		}
-	}
-
-	// Matrix Operations
-	Matrix operator+(Matrix& other)
-	{
-		Matrix add(this->colSize, this->rowSize, NULL);
-		unsigned i, j;
-		for (i = 0; i < this->rowSize; i++)
-		{
-			for (j = 0; j < this->colSize; j++)
-			{
-				add(i, j) = this->matrix[i][j] + other(i, j);
-			}
-		}
-
-		return add;
-	}
-
-	Matrix operator-(Matrix& other)
-	{
-		Matrix subtracted(this->colSize, this->rowSize, NULL);
-		unsigned i, j;
-		for (i = 0; i < this->rowSize; i++)
-		{
-			for (j = 0; j < this->colSize; j++)
-			{
-				subtracted(i, j) = this->matrix[i][j] - other(i, j);
-			}
-		}
-
-		return subtracted;
 	}
 
 	Matrix operator*(Matrix& other)
@@ -64,40 +38,9 @@ public:
 					temp = NULL;
 					for (k = 0; k < this->colSize; k++)
 					{
-						temp += this->matrix[i][k] * other(k,j);
+						temp += this->matrix[i][k] * other(k, j);
 					}
 					multiply(i, j) = temp;
-				}
-			}
-
-			return multiply;
-		}
-		else
-		{
-			throw std::exception("Column size and others row size are not the same");
-		}
-	}
-
-	//Matrix transpose();
-
-	//Matrix-Vector Operations
-	Vector<Scalar> operator*(Vector<Scalar>& other)
-	{
-		Vector<Scalar> multiply = Vector<Scalar>(other.size(), true);
-		if (this->colSize == other.size())
-		{
-			unsigned i, j, k;
-			Scalar temp = NULL;
-			for (i = 0; i < this->rowSize; i++)
-			{
-				for (j = 0; j < other.size(); j++)
-				{
-					temp = NULL;
-					for (k = 0; k < this->colSize; k++)
-					{
-						temp += this->matrix[i][k] * other[k];
-					}
-					multiply[i] = temp;
 				}
 			}
 
@@ -191,8 +134,162 @@ public:
 	{
 		return this->rowSize;
 	}
+
+	static Matrix getTranslationMatrix(Scalar tx, Scalar ty, Scalar tz)
+	{
+		Matrix<Scalar> matrix = Matrix<Scalar>(4, 4);
+		matrix(0, 0) = 1;
+		matrix(1, 1) = 1;
+		matrix(2, 2) = 1;
+		matrix(3, 3) = 1;
+		matrix(0, 3) = tx;
+		matrix(1, 3) = ty;
+		matrix(2, 3) = tz;
+
+		return matrix;
+	}
+
+	static Matrix getScalingMatrix(Scalar sx, Scalar sy, Scalar sz)
+	{
+		Matrix<Scalar> matrix = Matrix<Scalar>(4, 4);
+		matrix(0, 0) = sx;
+		matrix(1, 1) = sy;
+		matrix(2, 2) = sz;
+		matrix(3, 3) = 1;
+
+		return matrix;
+	}
+
+	static Matrix getRotationMatrixX(Scalar angleXDegree)
+	{
+		double a = angleXDegree / 180 * M_PI;
+
+		Matrix<Scalar> matrix = Matrix<Scalar>(4, 4);
+		matrix(0, 0) = 1;
+		matrix(1, 1) = std::cos(a);
+		matrix(1, 2) = -std::sin(a);
+		matrix(2, 1) = std::sin(a);
+		matrix(2, 2) = std::cos(a);
+		matrix(3, 3) = 1;
+
+		return matrix;
+	}
+
+	static Matrix getRotationMatrixY(Scalar angleXDegree)
+	{
+		double a = angleXDegree / 180 * M_PI;
+
+		Matrix<Scalar> matrix = Matrix<Scalar>(4, 4);
+		matrix(0, 0) = std::cos(a);
+		matrix(0, 2) = std::sin(a);
+		matrix(1, 1) = 1;
+		matrix(2, 0) = -std::sin(a);
+		matrix(2, 2) = std::cos(a);
+		matrix(3, 3) = 1;
+
+		return matrix;
+	}
+
+	static Matrix getRotationMatrixZ(Scalar angleXDegree)
+	{
+		double a = angleXDegree / 180 * M_PI;
+
+		Matrix<Scalar> matrix = Matrix<Scalar>(4, 4);
+		matrix(0, 0) = std::cos(a);
+		matrix(0, 1) = -std::sin(a);
+		matrix(1, 0) = std::sin(a);
+		matrix(1, 1) = std::cos(a);
+		matrix(2, 2) = 1;
+		matrix(3, 3) = 1;
+
+		return matrix;
+	}
+
+	static Matrix getRotationMatrixM1(Vector3<Scalar> as)
+	{
+		Matrix<double> matrix = Matrix<double>(4, 4);
+
+		double xz = std::sqrt(as.x * as.x + as.z * as.z);
+
+		if (xz == 0.0)
+		{
+			matrix(0, 0) = 1;
+			matrix(1, 1) = 1;
+			matrix(2, 2) = 1;
+			matrix(3, 3) = 1;
+		}
+		else
+		{
+			matrix(0, 0) = as.x / xz; //cos
+			matrix(1, 1) = 1;
+			matrix(0, 2) = as.z / xz; //sin
+			matrix(2, 0) = -as.z / xz; //-sin
+			matrix(2, 2) = as.x / xz; //cos
+			matrix(3, 3) = 1;
+		}
+		return matrix;
+	}
+
+	static Matrix getRotationMatrixM2(Vector3<Scalar> as)
+	{
+		Matrix<double> matrix = Matrix<double>(4, 4);
+
+		double xz = std::sqrt(as.x * as.x + as.z * as.z);
+		double xyz = std::sqrt(as.x * as.x + as.y * as.y + as.z * as.z);
+
+		matrix(0, 0) = xz / xyz;
+		matrix(0, 1) = as.y / xyz;
+		matrix(1, 0) = -as.y / xyz;
+		matrix(1, 1) = xz / xyz;
+		matrix(2, 2) = 1;
+		matrix(3, 3) = 1;
+
+		return matrix;
+	}
+
+	static Matrix getRotationMatrixM4(Vector3<Scalar> as)
+	{
+		Matrix<double> matrix = Matrix<double>(4, 4);
+
+		double xz = std::sqrt(as.x * as.x + as.z * as.z);
+		double xyz = std::sqrt(as.x * as.x + as.y * as.y + as.z * as.z);
+
+		matrix(0, 0) = xz / xyz;
+		matrix(0, 1) = -as.y / xyz;
+		matrix(1, 0) = as.y / xyz;
+		matrix(1, 1) = xz / xyz;
+		matrix(2, 2) = 1;
+		matrix(3, 3) = 1;
+
+		return matrix;
+	}
+
+	static Matrix getRotationMatrixM5(Vector3<Scalar> as)
+	{
+		Matrix<double> matrix = Matrix<double>(4, 4);
+
+		double xz = std::sqrt(as.x * as.x + as.z * as.z);
+
+		if (xz == 0.0)
+		{
+			matrix(0, 0) = 1;
+			matrix(1, 1) = 1;
+			matrix(2, 2) = 1;
+			matrix(3, 3) = 1;
+		}
+		else
+		{
+			matrix(0, 0) = as.x / xz; //cos
+			matrix(1, 1) = 1;
+			matrix(0, 2) = -as.z / xz; //sin
+			matrix(2, 0) = as.z / xz; //-sin
+			matrix(2, 2) = as.x / xz; //cos
+			matrix(3, 3) = 1;
+		}
+		return matrix;
+	}
 private:
 	unsigned int rowSize;
 	unsigned int colSize;
-	Vector<Vector<Scalar>> matrix;
+	std::vector<std::vector<Scalar>> matrix;
 };
