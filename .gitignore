@@ -22,3 +22,18 @@ ipch/
 *.db-shm
 
 *.db-wal
+
+LinalEindopdracht/x64/
+
+LinalEindopdracht/LinalEindopdracht/x64/
+
+*.obj
+
+*.tlog
+
+*.log
+
+*.idb
+
+LinalEindopdracht/Debug/*.pdb
+LinalEindopdracht/linalEindopdracht/Debug/*.pdb

@@ -1,4 +1,0 @@
-﻿  Main.cpp
-D:\Users\Jordy\Desktop\LINAL\LINAL\LinalEindopdracht\LinalEindopdracht\Matrix.hpp(295,2): warning C4099: 'Matrix': type name first seen using 'class' now seen using 'struct'
-D:\Users\Jordy\Desktop\LINAL\LINAL\LinalEindopdracht\LinalEindopdracht\Vector3.hpp(6): message : see declaration of 'Matrix'
-  LinalEindopdracht.vcxproj -> D:\Users\Jordy\Desktop\LINAL\LINAL\LinalEindopdracht\x64\Debug\LinalEindopdracht.exe

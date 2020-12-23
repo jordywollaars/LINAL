@@ -89,6 +89,7 @@ public:
 		//this->pivot.print();
 	}
 
+	void setShipRenderObject();
 	void transform(Matrix<double> matrix);
 
 	std::vector<Vector3<double>>& getVertices();
