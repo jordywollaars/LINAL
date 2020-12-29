@@ -6,6 +6,7 @@
 
 #include "Matrix.hpp"
 #include "Edge.hpp"
+#include "Triangle.hpp"
 
 class RenderObject : public GameObject
 {
@@ -95,20 +96,26 @@ public:
 		//this->pivot.print();
 		//this->pivot.print();
 	}
-
+	void setSphereRenderObject(int levelOfDetail);
 	void setShipRenderObject();
-	void transform(Matrix<double> matrix);
+	void transformObject(Matrix<double> matrix);
+	void transformVertices(Matrix<double> matrix);
+	void rotateLocalAxis(Matrix<double> matrix);
 
 	std::vector<Vector3<double>>& getVertices();
+	std::vector<Edge<double>>& getEdges();
 	Vector3<double>& getPivot();
 
+	std::vector<Vector3<double>> getLocalAxis();
 	Vector3<double> getLocalXAxis();
 	Vector3<double> getLocalYAxis();
 	Vector3<double> getLocalZAxis();
 private:
 	std::vector<Vector3<double>> vertices;
 	std::vector<Edge<double>> edges;
+	std::vector<Triangle<double>> triangles;
 
-	std::vector<Vector3<double>> localAxis;
 	Vector3<double> pivot;
+protected:
+	std::vector<Vector3<double>> localAxis;
 };

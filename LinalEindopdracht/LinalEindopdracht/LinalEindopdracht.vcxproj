@@ -148,11 +148,16 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Camera.cpp" />
     <ClCompile Include="Edge.cpp" />
+    <ClCompile Include="InputHandler.cpp" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="Matrix.hpp" />
+    <ClCompile Include="Projectile.cpp" />
     <ClCompile Include="RenderObject.cpp" />
     <ClCompile Include="Scene.cpp" />
+    <ClCompile Include="Spaceship.cpp" />
+    <ClCompile Include="Target.cpp" />
     <ClCompile Include="Transform.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -191,8 +196,14 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Camera.hpp" />
     <ClInclude Include="Edge.hpp" />
     <ClInclude Include="GameObject.hpp" />
+    <ClInclude Include="InputHandler.hpp" />
+    <ClInclude Include="Projectile.hpp" />
+    <ClInclude Include="Spaceship.hpp" />
+    <ClInclude Include="Target.hpp" />
+    <ClInclude Include="Triangle.hpp" />
     <ClInclude Include="RenderObject.hpp" />
     <ClInclude Include="Scene.hpp" />
     <ClInclude Include="Transform.hpp" />

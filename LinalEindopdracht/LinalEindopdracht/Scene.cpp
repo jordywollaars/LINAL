@@ -13,16 +13,21 @@ void Scene::add(GameObject* gameObject)
 
 void Scene::update()
 {
-	for (GameObject* gameObject : this->gameObjects)
+	for (int i = 0; i < gameObjects.size(); i++)
 	{
-		gameObject->update();
+		gameObjects[i]->update();
 	}
 }
 
 void Scene::render(sf::RenderWindow& window)
 {
-	for (RenderObject* renderObject : this->renderObjects)
+	for (int i = 0; i < renderObjects.size(); i++)
 	{
-		renderObject->render(window);
+		renderObjects[i]->render(window);
 	}
+}
+
+std::vector<RenderObject*>& Scene::getRenderObjects()
+{
+	return this->renderObjects;
 }

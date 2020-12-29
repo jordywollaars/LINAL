@@ -2,170 +2,79 @@
 
 void RenderObject::render(sf::RenderWindow& window)
 {
-	const double canvastWidth = 800;
-	const double canvastHeight = 600;
+}
 
-	// middelpunt scherm
-	int nulpuntCanvasX = canvastWidth / 2;
-	int nulpuntCanvasY = canvastHeight / 2;
+void RenderObject::setSphereRenderObject(int levelOfDetail)
+{
+	vertices = std::vector<Vector3<double>>();
+	edges = std::vector<Edge<double>>();
 
-	// Afbeelden van de punten m�t perspectiefmatrix
-	// cre�er perspectief matrix
-	double near = 0.1;
-	double far = 1000.0;
-	double fovy = 60.0;
-	double scale = near * std::tan(fovy * 0.5);
+	vertices.push_back(Vector3<double>(1, 0, 0));
+	vertices.push_back(Vector3<double>(-1, 0, 0));
 
-	Matrix<double> pm = Matrix<double>(4, 4);
-	pm(0, 0) = scale;    
-	pm(1, 1) = scale;   
-	pm(2, 2) = -far / (far - near);        
-	pm(2, 3) = -1;
-	pm(3, 2) = -(far * near) / (far - near);
+	vertices.push_back(Vector3<double>(0, 1, 0));
+	vertices.push_back(Vector3<double>(0, -1, 0));
 
-	Vector3<double> begin;
-	Vector3<double> end;
+	vertices.push_back(Vector3<double>(0, 0, 1));
+	vertices.push_back(Vector3<double>(0, 0, -1));
 
-	for (int i = 0; i < this->edges.size(); i++) {
-		begin = this->edges[i].getStart().getPerspectiveCoordinate(pm);
-		end = this->edges[i].getEnd().getPerspectiveCoordinate(pm);
+	edges.push_back(Edge<double>(vertices[0], vertices[2]));
+	edges.push_back(Edge<double>(vertices[2], vertices[4]));
+	edges.push_back(Edge<double>(vertices[4], vertices[0]));
 
-		if ((begin.w > 0) && (end.w > 0)) {
-				sf::Vertex edgeLine[]{
-					{
-						sf::Vector2f(nulpuntCanvasX + (int)(begin.x / begin.w * canvastWidth / begin.w), 
-									 nulpuntCanvasY - (int)(begin.y / begin.w * canvastHeight / begin.w)),
-						{255,255,255,255}
-					},
-					{
-						sf::Vector2f(nulpuntCanvasX + (int)(end.x / end.w * canvastWidth / end.w),
-									 nulpuntCanvasY - (int)(end.y / end.w * canvastHeight / end.w)),
-						{255,255,255,255}
-					}
-				};
-				window.draw(edgeLine, 2, sf::Lines);
-		}
-	}
+	edges.push_back(Edge<double>(vertices[0], vertices[3]));
+	edges.push_back(Edge<double>(vertices[3], vertices[5]));
+	edges.push_back(Edge<double>(vertices[5], vertices[0]));
 
-	std::vector<sf::Color> colors{
-		{255, 0, 0, 255},
-		{ 0,255,0,255 },
-		{ 0,0,255,255 },
-	};
+	edges.push_back(Edge<double>(vertices[0], vertices[4]));
+	edges.push_back(Edge<double>(vertices[4], vertices[2]));
+	edges.push_back(Edge<double>(vertices[2], vertices[0]));
 
-	for (int i = 1; i < 4; i++)
+	edges.push_back(Edge<double>(vertices[0], vertices[5]));
+	edges.push_back(Edge<double>(vertices[5], vertices[3]));
+	edges.push_back(Edge<double>(vertices[3], vertices[0]));
+
+	edges.push_back(Edge<double>(vertices[1], vertices[2]));
+	edges.push_back(Edge<double>(vertices[2], vertices[5]));
+	edges.push_back(Edge<double>(vertices[5], vertices[1]));
+
+	edges.push_back(Edge<double>(vertices[1], vertices[3]));
+	edges.push_back(Edge<double>(vertices[3], vertices[4]));
+	edges.push_back(Edge<double>(vertices[4], vertices[1]));
+
+	edges.push_back(Edge<double>(vertices[1], vertices[5]));
+	edges.push_back(Edge<double>(vertices[5], vertices[2]));
+	edges.push_back(Edge<double>(vertices[2], vertices[1]));
+
+	edges.push_back(Edge<double>(vertices[3], vertices[1]));
+	edges.push_back(Edge<double>(vertices[1], vertices[4]));
+	edges.push_back(Edge<double>(vertices[4], vertices[3]));
+
+	triangles.push_back(Triangle<double>(edges[0], edges[1], edges[2]));
+	triangles.push_back(Triangle<double>(edges[3], edges[4], edges[5]));
+	triangles.push_back(Triangle<double>(edges[6], edges[7], edges[8]));
+	triangles.push_back(Triangle<double>(edges[9], edges[10], edges[11]));
+	triangles.push_back(Triangle<double>(edges[12], edges[13], edges[14]));
+	triangles.push_back(Triangle<double>(edges[15], edges[16], edges[17]));
+	triangles.push_back(Triangle<double>(edges[18], edges[19], edges[20]));
+	triangles.push_back(Triangle<double>(edges[21], edges[22], edges[23]));
+
+	/*for (int i = 0; i < 1; i++)
 	{
-		Vector3<double> center = this->getPivot();
-		Vector3<double> origin = center + this->localAxis[0];
-		Vector3<double> scaledUpAxis = this->localAxis[i] * 45;
-		Vector3<double> dir = center + scaledUpAxis;
+		std::vector<Edge<double>> theseEdges = std::vector<Edge<double>>();
 
-		begin = origin.getPerspectiveCoordinate(pm);
-		end = dir.getPerspectiveCoordinate(pm);
+		for (auto tri : triangles)
+		{
+			std::vector<Edge<double>> newEdges = tri.tessellate(this->getPivot());
 
-		if ((begin.w > 0) && (end.w > 0)) {
-			sf::Vertex edgeLine[]{
-				{
-					sf::Vector2f(nulpuntCanvasX + (int)(begin.x / begin.w * canvastWidth / begin.w),
-								 nulpuntCanvasY - (int)(begin.y / begin.w * canvastHeight / begin.w)),
-					colors[i-1]
-				},
-				{
-					sf::Vector2f(nulpuntCanvasX + (int)(end.x / end.w * canvastWidth / end.w),
-								 nulpuntCanvasY - (int)(end.y / end.w * canvastHeight / end.w)),
-					colors[i - 1]
-				}
-			};
-			window.draw(edgeLine, 2, sf::Lines);
+			for (auto newEdge : newEdges)
+			{
+				theseEdges.push_back(newEdge);
+			}
 		}
-	}
 
-	////Front
-	//double offsetx = 0;
-	//double offsety = 0;
-
-	//for (auto vertex : vertices)
-	//{
-	//	sf::CircleShape shape(1);
-	//	sf::Color color(255, 255, 255, 255);
-	//	shape.setFillColor(color);
-	//	shape.setPosition(offsetx + vertex.x, offsety + vertex.y);
-
-	//	window.draw(shape);
-	//}
-
-	//for (auto edge : edges)
-	//{
-	//	sf::Vertex edgeLine[]{
-	//		{
-	//			sf::Vector2f(offsetx + edge.getStart().x, offsety + edge.getStart().y),
-	//			{255,255,255,255}
-	//		},
-	//		{
-	//			sf::Vector2f(offsetx + edge.getEnd().x, offsety + edge.getEnd().y),
-	//			{255,255,255,255}
-	//		}
-	//	};
-	//	window.draw(edgeLine, 2, sf::Lines);
-	//}
-
-	////Side y- z-
-	//offsetx = 400;
-	//offsety = 0;
-
-	//for (auto vertex : vertices)
-	//{
-	//	sf::CircleShape shape(1);
-	//	sf::Color color(255, 255, 255, 255);
-	//	shape.setFillColor(color);
-	//	shape.setPosition(offsetx + vertex.z, offsety + vertex.y);
-	//
-	//	window.draw(shape);
-	//}
-
-	//for (auto edge : edges)
-	//{
-	//	sf::Vertex edgeLine[]{
-	//		{
-	//			sf::Vector2f(offsetx + edge.getStart().z, offsety + edge.getStart().y),
-	//			{255,255,255,255}
-	//		},
-	//		{
-	//			sf::Vector2f(offsetx + edge.getEnd().z, offsety + edge.getEnd().y),
-	//			{255,255,255,255}
-	//		}
-	//	};
-	//	window.draw(edgeLine, 2, sf::Lines);
-	//}
-
-	//Top x-z-
-	//offsetx = 150;
-	//offsety = 250;
-
-	//for (auto vertex : vertices)
-	//{
-	//	sf::CircleShape shape(1);
-	//	sf::Color color(255, 255, 255, 255);
-	//	shape.setFillColor(color);
-	//	shape.setPosition(offsetx + vertex.x, offsety + vertex.z);
-	//
-	//	window.draw(shape);
-	//}
-
-	//for (auto edge : edges)
-	//{
-	//	sf::Vertex edgeLine[]{
-	//		{
-	//			sf::Vector2f(offsetx + edge.getStart().x, offsety + edge.getStart().z),
-	//			{255,255,255,255}
-	//		},
-	//		{
-	//			sf::Vector2f(offsetx + edge.getEnd().x, offsety + edge.getEnd().z),
-	//			{255,255,255,255}
-	//		}
-	//	};
-	//	window.draw(edgeLine, 2, sf::Lines);
-	//}
+		edges = std::vector<Edge<double>>(theseEdges);
+	}*/
 }
 
 void RenderObject::setShipRenderObject()
@@ -204,13 +113,13 @@ void RenderObject::setShipRenderObject()
 	vertices.push_back(Vector3<double>(-0.947424, -0.591276, 1.108456));
 	vertices.push_back(Vector3<double>(0.961964, 0.591276, 1.108456));
 	vertices.push_back(Vector3<double>(0.961964, -0.591276, 1.108456));
-							 
+
 	//Left Wing				 
 	vertices.push_back(Vector3<double>(-3.178952, 0.087054, -0.193291));
 	vertices.push_back(Vector3<double>(-3.178952, -0.087054, -0.193291));
 	vertices.push_back(Vector3<double>(-0.992730, 0.399007, 3.688400));
 	vertices.push_back(Vector3<double>(-0.992730, -0.399006, 3.688404));
-							 
+
 	//Right Wing			 
 	vertices.push_back(Vector3<double>(3.135330, 0.087054, -0.193291));
 	vertices.push_back(Vector3<double>(3.135330, -0.087054, -0.193291));
@@ -298,14 +207,14 @@ void RenderObject::setShipRenderObject()
 	edges.push_back(Edge<double>(vertices[26], vertices[18]));
 	edges.push_back(Edge<double>(vertices[27], vertices[19]));
 
-	double multiplier = 20;
-	for (auto vertex : vertices)
-	{
-		vertex.x = vertex.x * multiplier;
-		vertex.y = vertex.y * multiplier;
-		vertex.z = vertex.z * multiplier;
-		//vertex.print();
-	}
+	//double multiplier = 20;
+	//for (auto vertex : vertices)
+	//{
+	//	vertex.x = vertex.x * multiplier;
+	//	vertex.y = vertex.y * multiplier;
+	//	vertex.z = vertex.z * multiplier;
+	//	//vertex.print();
+	//}
 
 	/*int pivotValue = 250;
 	this->pivot.push(pivotValue);
@@ -321,24 +230,45 @@ void RenderObject::setShipRenderObject()
 	//this->pivot.print();
 }
 
-void RenderObject::transform(Matrix<double> matrix)
+void RenderObject::transformObject(Matrix<double> matrix)
 {
 	for (Vector3<double>& vertex : vertices)
 	{
 		vertex.transform(matrix);
 	}
 
-	/*for (Vector3<double>& dot : localAxis)
+	for (Vector3<double>& point : localAxis)
 	{
-		dot.transform(matrix);
-	}*/
+		point.transform(matrix);
+	}
 
 	pivot.transform(matrix);
+}
+
+void RenderObject::transformVertices(Matrix<double> matrix)
+{
+	for (Vector3<double>& vertex : vertices)
+	{
+		vertex.transform(matrix);
+	}
+}
+
+void RenderObject::rotateLocalAxis(Matrix<double> matrix)
+{
+	for (Vector3<double>& dot : this->localAxis)
+	{
+		dot.transform(matrix);
+	}
 }
 
 std::vector<Vector3<double>>& RenderObject::getVertices()
 {
 	return this->vertices;
+}
+
+std::vector<Edge<double>>& RenderObject::getEdges()
+{
+	return this->edges;
 }
 
 Vector3<double>& RenderObject::getPivot()
@@ -361,22 +291,27 @@ Vector3<double>& RenderObject::getPivot()
 	return tdp;
 }
 
+std::vector<Vector3<double>> RenderObject::getLocalAxis()
+{
+	return this->localAxis;
+}
+
 Vector3<double> RenderObject::getLocalXAxis()
 {
 	Vector3<double> XAxis = Vector3<double>(
-		vertices[0].x - vertices[1].x,
-		vertices[0].y - vertices[1].y,
-		vertices[0].z - vertices[1].z);
+		this->localAxis[1].x - this->localAxis[0].x,
+		this->localAxis[1].y - this->localAxis[0].y,
+		this->localAxis[1].z - this->localAxis[0].z);
 
-	return XAxis + this->getPivot();
+	return XAxis;
 }
 
 Vector3<double> RenderObject::getLocalYAxis()
 {
 	Vector3<double> YAxis = Vector3<double>(
-		vertices[0].x - vertices[2].x,
-		vertices[0].y - vertices[2].y,
-		vertices[0].z - vertices[2].z);
+		this->localAxis[2].x - this->localAxis[0].x,
+		this->localAxis[2].y - this->localAxis[0].y,
+		this->localAxis[2].z - this->localAxis[0].z);
 
 	return YAxis;
 }
@@ -384,9 +319,9 @@ Vector3<double> RenderObject::getLocalYAxis()
 Vector3<double> RenderObject::getLocalZAxis()
 {
 	Vector3<double> ZAxis = Vector3<double>(
-		vertices[0].x - vertices[3].x,
-		vertices[0].y - vertices[3].y,
-		vertices[0].z - vertices[3].z);
+		this->localAxis[3].x - this->localAxis[0].x,
+		this->localAxis[3].y - this->localAxis[0].y,
+		this->localAxis[3].z - this->localAxis[0].z);
 
 	return ZAxis;
 }

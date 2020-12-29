@@ -6,7 +6,14 @@
 #include <SFML/Graphics.hpp>
 
 #include "Scene.hpp"
+#include "Camera.hpp"
 #include "Matrix.hpp"
+
+#include "Target.hpp"
+#include <random>
+
+#include "InputHandler.hpp"
+#include "Spaceship.hpp"
 
 int main() {
 	const int windowWidth = 800;
@@ -18,18 +25,42 @@ int main() {
 	sf::RenderWindow window(sf::VideoMode(windowWidth, windowHeight), "Linal!");
 	//window.setFramerateLimit(144);
 
+	InputHandler* inputHandler = new InputHandler();
+
 	Scene* scene = new Scene();
-	RenderObject* renderObject = new RenderObject();
-	renderObject->setStarRenderObject();
-	//renderObject->setShipRenderObject();
-	scene->add(renderObject);
+	RenderObject* spaceShip = new Spaceship(*inputHandler, *scene);
+	//renderObject->setStarRenderObject();
+	//spaceShip->setShipRenderObject();
+	scene->add(spaceShip);
 
-	for (int i = 0; i < 35; i++)
+	RenderObject* sphere1 = new RenderObject();
+	RenderObject* sphere2 = new RenderObject();
+	RenderObject* sphere3 = new RenderObject();
+	RenderObject* sphere4 = new Target();
+	sphere4->setSphereRenderObject(4);
+	sphere4->transformObject(Matrix<double>::getScalingMatrix(4, 4, 4));
+	sphere4->transformObject(Matrix<double>::getTranslationMatrix(6.4, 22.4, -41.6));
+	scene->add(sphere4);
+
+	std::random_device rd;
+	std::mt19937 rng(rd());
+	std::uniform_real_distribution<double> uni(0, 100);
+
+	for (int i = 0; i < 50; i++)
 	{
+		RenderObject* sphere = new RenderObject();
+		sphere->setSphereRenderObject(0);
+		scene->add(sphere);
 
-		Matrix<double> translationMatrixNegZ = Matrix<double>::getTranslationMatrix(.0, .0, -1.0 * 10);
-		renderObject->transform(translationMatrixNegZ);
+		sphere->transformObject(Matrix<double>::getScalingMatrix(4, 4, 4));
+		double x = uni(rng) - 50;
+		double y = uni(rng) - 50;
+		double z = uni(rng) - 50;
+		sphere->transformObject(Matrix<double>::getTranslationMatrix(x, y, z));
 	}
+
+	Camera* camera = new Camera(Vector3<double>(0, 0, 50), Vector3<double>(0, -20, 0), *scene);
+
 
 	while (window.isOpen())
 	{
@@ -43,98 +74,57 @@ int main() {
 				window.close();
 			}
 
-			if (event.type == sf::Event::KeyPressed)
+			if (event.type == sf::Event::KeyPressed || event.type == sf::Event::KeyReleased)
 			{
-				//Movement
-				if (event.key.code == sf::Keyboard::Key::D)
-				{
-					Matrix<double> translationMatrixPosX = Matrix<double>::getTranslationMatrix(1.0*10, .0, .0);
-					renderObject->transform(translationMatrixPosX);
-				}
-
-				if (event.key.code == sf::Keyboard::Key::A)
-				{
-					Matrix<double> translationMatrixNegX = Matrix<double>::getTranslationMatrix(-1.0 * 10, .0, .0);
-					renderObject->transform(translationMatrixNegX);
-				}
-
-				if (event.key.code == sf::Keyboard::Key::W)
-				{
-					Matrix<double> translationMatrixPosY = Matrix<double>::getTranslationMatrix(.0, -1.0 * 10, .0);
-					renderObject->transform(translationMatrixPosY);
-				}
-
-				if (event.key.code == sf::Keyboard::Key::S)
-				{
-					Matrix<double> translationMatrixNegY = Matrix<double>::getTranslationMatrix(.0, 1.0 * 10, .0);
-					renderObject->transform(translationMatrixNegY);
-				}
-
-				if (event.key.code == sf::Keyboard::Key::E)
-				{
-					Matrix<double> translationMatrixPosZ = Matrix<double>::getTranslationMatrix(.0, .0, 1.0 * 10);
-					renderObject->transform(translationMatrixPosZ);
-				}
-
-				if (event.key.code == sf::Keyboard::Key::Q)
-				{
-					Matrix<double> translationMatrixNegZ = Matrix<double>::getTranslationMatrix(.0, .0, -1.0 * 10);
-					renderObject->transform(translationMatrixNegZ);
-				}
-
-				//Scaling
-				if (event.key.code == sf::Keyboard::Key::Up)
-				{
-					Matrix<double> toOrigin = Matrix<double>::getTranslationMatrix(renderObject->getPivot().x, renderObject->getPivot().y, renderObject->getPivot().z);
-					Matrix<double> upscaleMatrix = Matrix<double>::getScalingMatrix(1.1, 1.1, 1.1);
-					Matrix<double> back = Matrix<double>::getTranslationMatrix(-renderObject->getPivot().x, -renderObject->getPivot().y, -renderObject->getPivot().z);
-					renderObject->transform(toOrigin * upscaleMatrix * back);
-				}
-
-				if (event.key.code == sf::Keyboard::Key::Down)
-				{
-					Matrix<double> toOrigin = Matrix<double>::getTranslationMatrix(renderObject->getPivot().x, renderObject->getPivot().y, renderObject->getPivot().z);
-					Matrix<double> downscaleMatrix = Matrix<double>::getScalingMatrix(0.9, 0.9, 0.9);
-					Matrix<double> back = Matrix<double>::getTranslationMatrix(-renderObject->getPivot().x, -renderObject->getPivot().y, -renderObject->getPivot().z);
-					renderObject->transform(toOrigin * downscaleMatrix * back);
-				}
-
-				//Rotating
-				if (event.key.code == sf::Keyboard::Key::R)
-				{
-					Vector3<double> localXAxis = renderObject->getLocalXAxis();
-					localXAxis.normalize();
-
-					// translatiematrix naar de oorsprong
-					Matrix<double> to = Matrix<double>::getTranslationMatrix(renderObject->getPivot().x, renderObject->getPivot().y, renderObject->getPivot().z);
-					// rotatiematrix om de y-as naar het xy-vlak
-					Matrix<double> m1 = Matrix<double>::getRotationMatrixM1(localXAxis);
-					// rotatiematrix om de z-as naar de x-as
-					Matrix<double> m2 = Matrix<double>::getRotationMatrixM2(localXAxis);
-					// rotatie om de x-as
-					Matrix<double> m3 = Matrix<double>::getRotationMatrixX(1);
-					// rotatie om de z-as terug
-					Matrix<double> m4 = Matrix<double>::getRotationMatrixM4(localXAxis);
-					// rotatie om de y-as terug
-					Matrix<double> m5 = Matrix<double>::getRotationMatrixM5(localXAxis);
-					// translatiematrix "terug"
-					Matrix<double> back = Matrix<double>::getTranslationMatrix(-renderObject->getPivot().x, -renderObject->getPivot().y, -renderObject->getPivot().z);
-					// vermenigvuldig alle matrices
-					Matrix<double> m = to * m1 * m2 * m3 * m4 * m5 * back;
-
-					renderObject->transform(m);
-				}
+				inputHandler->input(event);
 			}
 		}
 
+		if (inputHandler->keyHold(sf::Keyboard::Key::Up))
+		{
+			Matrix<double> translationMatrix = Matrix<double>::getTranslationMatrix(.0, -.4, .0);
+			camera->transform(translationMatrix);
+		}
+
+		if (inputHandler->keyHold(sf::Keyboard::Key::Down))
+		{
+			Matrix<double> translationMatrix = Matrix<double>::getTranslationMatrix(.0, .4, .0);
+			camera->transform(translationMatrix);
+		}
+
+		if (inputHandler->keyHold(sf::Keyboard::Key::Left))
+		{
+			Matrix<double> translationMatrix = Matrix<double>::getTranslationMatrix(.4, .0, .0);
+			camera->transform(translationMatrix);
+		}
+
+		if (inputHandler->keyHold(sf::Keyboard::Key::Right))
+		{
+			Matrix<double> translationMatrix = Matrix<double>::getTranslationMatrix(-.4, .0, .0);
+			camera->transform(translationMatrix);
+		}
+
+		if (inputHandler->keyHold(sf::Keyboard::Key::PageUp))
+		{
+			Matrix<double> translationMatrix = Matrix<double>::getTranslationMatrix(.0, .0, .4);
+			camera->transform(translationMatrix);
+		}
+
+		if (inputHandler->keyHold(sf::Keyboard::Key::PageDown))
+		{
+			Matrix<double> translationMatrix = Matrix<double>::getTranslationMatrix(.0, .0, -.4);
+			camera->transform(translationMatrix);
+		}
+
 		scene->update();
-		scene->render(window);
+		camera->draw(window);
+		//scene->render(window);
 
 		window.display();
 	}
 
 	delete scene;
-	delete renderObject;
+	delete spaceShip;
 
 	return 0;
 }
