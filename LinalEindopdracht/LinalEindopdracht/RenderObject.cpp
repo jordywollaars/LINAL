@@ -306,7 +306,7 @@ Vector3<double> RenderObject::getLocalXAxis()
 		this->localAxis[1].x - this->localAxis[0].x,
 		this->localAxis[1].y - this->localAxis[0].y,
 		this->localAxis[1].z - this->localAxis[0].z);
-	XAxis.normalize();
+	//XAxis.normalize();
 
 	return XAxis;
 }
@@ -317,7 +317,7 @@ Vector3<double> RenderObject::getLocalYAxis()
 		this->localAxis[2].x - this->localAxis[0].x,
 		this->localAxis[2].y - this->localAxis[0].y,
 		this->localAxis[2].z - this->localAxis[0].z);
-	YAxis.normalize();
+	//YAxis.normalize();
 
 	return YAxis;
 }
@@ -329,7 +329,7 @@ Vector3<double> RenderObject::getLocalZAxis()
 		this->localAxis[3].y - this->localAxis[0].y,
 		this->localAxis[3].z - this->localAxis[0].z);
 
-	ZAxis.normalize();
+	//ZAxis.normalize();
 
 	return ZAxis;
 }

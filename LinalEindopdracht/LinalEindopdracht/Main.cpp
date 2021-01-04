@@ -35,17 +35,17 @@ int main() {
 
 	std::vector<BoundingBox*> boundingBoxes = std::vector<BoundingBox*>();
 
-	/*Target* target = new Target();
+	Target* target = new Target();
 	target->setSphereRenderObject(4);
 	target->transformObject(Matrix<double>::getScalingMatrix(4, 4, 4));
 	target->transformObject(Matrix<double>::getTranslationMatrix(6.4, 22.4, -41.6));
-	scene->add(target);*/
+	scene->add(target);
 
 	std::random_device rd;
 	std::mt19937 rng(rd());
 	std::uniform_real_distribution<double> uni(0, 100);
 
-	/*for (int i = 0; i < 10; i++)
+	for (int i = 0; i < 10; i++)
 	{
 		RenderObject* sphere = new RenderObject();
 		sphere->setSphereRenderObject(0);
@@ -56,7 +56,7 @@ int main() {
 		double y = uni(rng) - 50;
 		double z = uni(rng) - 50;
 		sphere->transformObject(Matrix<double>::getTranslationMatrix(x, y, z));
-	}*/
+	}
 
 	Camera* camera = new Camera(Vector3<double>(0, 0, 50), Vector3<double>(0, -20, 0), *scene);
 
@@ -117,7 +117,6 @@ int main() {
 			Matrix<double> translationMatrix = Matrix<double>::getTranslationMatrix(.0, .0, -.4);
 			camera->transform(translationMatrix);
 		}
-
 
 		scene->update(dt.asSeconds());
 		scene->updateCollisions();

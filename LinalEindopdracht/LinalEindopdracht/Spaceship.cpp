@@ -6,12 +6,12 @@
 
 Spaceship::Spaceship(InputHandler& inputHandler, Scene& scene) : BoundingBox(this->getVertices()), inputHandler{ inputHandler }, scene{scene}
 {
-	this->setSphereRenderObject(0);
+	this->setShipRenderObject();
 
-	Matrix<double> toOrigin = Matrix<double>::getTranslationMatrix(this->getPivot().x, this->getPivot().y, this->getPivot().z);
-	Matrix<double> upscaleMatrix = Matrix<double>::getScalingMatrix(4, 4, 4);
-	Matrix<double> back = Matrix<double>::getTranslationMatrix(-this->getPivot().x, -this->getPivot().y, -this->getPivot().z);
-	this->transformVertices(toOrigin* upscaleMatrix* back);
+	//Matrix<double> toOrigin = Matrix<double>::getTranslationMatrix(this->getPivot().x, this->getPivot().y, this->getPivot().z);
+	//Matrix<double> upscaleMatrix = Matrix<double>::getScalingMatrix(4, 4, 4);
+	//Matrix<double> back = Matrix<double>::getTranslationMatrix(-this->getPivot().x, -this->getPivot().y, -this->getPivot().z);
+	//this->transformVertices(toOrigin* upscaleMatrix* back);
 }
 
 void Spaceship::shoot()
@@ -31,6 +31,12 @@ void Spaceship::update(double deltaTime)
 	if (inputHandler.keyHold(sf::Keyboard::Key::LShift))
 	{
 		Matrix<double> translationMatrixForward = Matrix<double>::getTranslationMatrix(-this->getLocalZAxis().x * moveSpeed * deltaTime, -this->getLocalZAxis().y * moveSpeed * deltaTime, -this->getLocalZAxis().z * moveSpeed * deltaTime);
+		this->transformObject(translationMatrixForward);
+	}
+
+	if (inputHandler.keyHold(sf::Keyboard::Key::RShift))
+	{
+		Matrix<double> translationMatrixForward = Matrix<double>::getTranslationMatrix(-this->getLocalXAxis().x * moveSpeed * deltaTime, -this->getLocalXAxis().y * moveSpeed * deltaTime, -this->getLocalXAxis().z * moveSpeed * deltaTime);
 		this->transformObject(translationMatrixForward);
 	}
 
@@ -85,6 +91,12 @@ void Spaceship::onCollision(BoundingBox* other)
 
 Matrix<double> Spaceship::rotationMatrix(Vector3<double> rotationAxis, Vector3<double> centre, double degrees)
 {
+	rotationAxis.normalize();
+	
+	rotationAxis.print();
+
+	std::cout << rotationAxis.length() << std::endl;
+
 	Matrix<double> to = Matrix<double>::getTranslationMatrix(centre.x, centre.y, centre.z);
 	Matrix<double> m1 = Matrix<double>::getRotationMatrixM1(rotationAxis);
 	Matrix<double> m2 = Matrix<double>::getRotationMatrixM2(rotationAxis);
@@ -93,7 +105,7 @@ Matrix<double> Spaceship::rotationMatrix(Vector3<double> rotationAxis, Vector3<d
 	Matrix<double> m5 = Matrix<double>::getRotationMatrixM5(rotationAxis);
 	Matrix<double> back = Matrix<double>::getTranslationMatrix(-centre.x, -centre.y, -centre.z);
 
-	Matrix<double> m = (((((to * m1) * m2) * m3) * m4) * m5) * back;
+	Matrix<double> m = to * m5 * m4 * m3 * m2 * m1 * back;
 
 	return m;
 }
