@@ -91,12 +91,6 @@ void Spaceship::onCollision(BoundingBox* other)
 
 Matrix<double> Spaceship::rotationMatrix(Vector3<double> rotationAxis, Vector3<double> centre, double degrees)
 {
-	rotationAxis.normalize();
-	
-	rotationAxis.print();
-
-	std::cout << rotationAxis.length() << std::endl;
-
 	Matrix<double> to = Matrix<double>::getTranslationMatrix(centre.x, centre.y, centre.z);
 	Matrix<double> m1 = Matrix<double>::getRotationMatrixM1(rotationAxis);
 	Matrix<double> m2 = Matrix<double>::getRotationMatrixM2(rotationAxis);

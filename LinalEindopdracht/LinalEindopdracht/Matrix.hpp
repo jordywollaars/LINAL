@@ -162,7 +162,7 @@ public:
 
 	static Matrix getRotationMatrixX(Scalar angleXDegree)
 	{
-		double a = angleXDegree / 180 * M_PI;
+		Scalar a = angleXDegree / 180 * M_PI;
 
 		Matrix<Scalar> matrix = Matrix<Scalar>(4, 4);
 		matrix(0, 0) = 1;
@@ -177,7 +177,7 @@ public:
 
 	static Matrix getRotationMatrixY(Scalar angleXDegree)
 	{
-		double a = angleXDegree / 180 * M_PI;
+		Scalar a = angleXDegree / 180 * M_PI;
 
 		Matrix<Scalar> matrix = Matrix<Scalar>(4, 4);
 		matrix(0, 0) = std::cos(a);
@@ -192,7 +192,7 @@ public:
 
 	static Matrix getRotationMatrixZ(Scalar angleXDegree)
 	{
-		double a = angleXDegree / 180 * M_PI;
+		Scalar a = angleXDegree / 180 * M_PI;
 
 		Matrix<Scalar> matrix = Matrix<Scalar>(4, 4);
 		matrix(0, 0) = std::cos(a);
@@ -209,7 +209,7 @@ public:
 	{
 		Matrix<double> matrix = Matrix<double>(4, 4);
 
-		double xz = std::sqrt((as.x * as.x) + (as.z * as.z));
+		Scalar xz = std::sqrt((as.x * as.x) + (as.z * as.z));
 
 		if (xz == 0.0)
 		{
@@ -232,10 +232,10 @@ public:
 
 	static Matrix getRotationMatrixM2(Vector3<Scalar> as)
 	{
-		Matrix<double> matrix = Matrix<double>(4, 4);
+		Matrix<Scalar> matrix = Matrix<Scalar>(4, 4);
 
-		double xz = std::sqrt((as.x * as.x) + (as.z * as.z));
-		double xyz = std::sqrt((as.x * as.x) + (as.y * as.y) + (as.z * as.z));
+		Scalar xz = std::sqrt((as.x * as.x) + (as.z * as.z));
+		Scalar xyz = std::sqrt((as.x * as.x) + (as.y * as.y) + (as.z * as.z));
 
 
 		if (xz == 0.0 || xyz == 0.0)
@@ -260,10 +260,10 @@ public:
 
 	static Matrix getRotationMatrixM4(Vector3<Scalar> as)
 	{
-		Matrix<double> matrix = Matrix<double>(4, 4);
+		Matrix<Scalar> matrix = Matrix<Scalar>(4, 4);
 
-		double xz = std::sqrt((as.x * as.x) + (as.z * as.z));
-		double xyz = std::sqrt((as.x * as.x) + (as.y * as.y) + (as.z * as.z));
+		Scalar xz = std::sqrt((as.x * as.x) + (as.z * as.z));
+		Scalar xyz = std::sqrt((as.x * as.x) + (as.y * as.y) + (as.z * as.z));
 
 		if (xz == 0.0 || xyz == 0.0)
 		{
@@ -287,9 +287,9 @@ public:
 
 	static Matrix getRotationMatrixM5(Vector3<Scalar> as)
 	{
-		Matrix<double> matrix = Matrix<double>(4, 4);
+		Matrix<Scalar> matrix = Matrix<Scalar>(4, 4);
 
-		double xz = std::sqrt((as.x * as.x) + (as.z * as.z));
+		Scalar xz = std::sqrt((as.x * as.x) + (as.z * as.z));
 
 		if (xz == 0.0)
 		{
