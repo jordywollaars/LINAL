@@ -1,4 +1,5 @@
 #include "RenderObject.hpp"
+#include "BoundingBox.hpp"
 
 void RenderObject::render(sf::RenderWindow& window)
 {
@@ -79,8 +80,8 @@ void RenderObject::setSphereRenderObject(int levelOfDetail)
 
 void RenderObject::setShipRenderObject()
 {
-	vertices = std::vector<Vector3<double>>();
-	edges = std::vector<Edge<double>>();
+	/*vertices = std::vector<Vector3<double>>();
+	edges = std::vector<Edge<double>>();*/
 
 	//Hull
 
@@ -216,10 +217,7 @@ void RenderObject::setShipRenderObject()
 	//	//vertex.print();
 	//}
 
-	/*int pivotValue = 250;
-	this->pivot.push(pivotValue);
-	this->pivot.push(pivotValue);
-	this->pivot.push(pivotValue);*/
+	this->pivot = Vector3<double>(0, 0, 0);
 
 	//this->setScale(Vector3<double>(0.5, 0.5, 0.5));
 
@@ -242,7 +240,13 @@ void RenderObject::transformObject(Matrix<double> matrix)
 		point.transform(matrix);
 	}
 
-	pivot.transform(matrix);
+	//pivot.transform(matrix);
+
+	BoundingBox* temp = dynamic_cast<BoundingBox*>(this);
+	if (temp)
+	{
+		temp->updateBoundingBox();
+	}
 }
 
 void RenderObject::transformVertices(Matrix<double> matrix)
@@ -273,7 +277,7 @@ std::vector<Edge<double>>& RenderObject::getEdges()
 
 Vector3<double>& RenderObject::getPivot()
 {
-	double xTotal = 0;
+	/*double xTotal = 0;
 	double yTotal = 0;
 	double zTotal = 0;
 
@@ -286,9 +290,9 @@ Vector3<double>& RenderObject::getPivot()
 	Vector3<double> tdp = Vector3<double>(
 		xTotal / vertices.size(),
 		yTotal / vertices.size(),
-		zTotal / vertices.size());
+		zTotal / vertices.size());*/
 
-	return tdp;
+	return this->localAxis[0];
 }
 
 std::vector<Vector3<double>> RenderObject::getLocalAxis()
@@ -302,6 +306,7 @@ Vector3<double> RenderObject::getLocalXAxis()
 		this->localAxis[1].x - this->localAxis[0].x,
 		this->localAxis[1].y - this->localAxis[0].y,
 		this->localAxis[1].z - this->localAxis[0].z);
+	XAxis.normalize();
 
 	return XAxis;
 }
@@ -312,6 +317,7 @@ Vector3<double> RenderObject::getLocalYAxis()
 		this->localAxis[2].x - this->localAxis[0].x,
 		this->localAxis[2].y - this->localAxis[0].y,
 		this->localAxis[2].z - this->localAxis[0].z);
+	YAxis.normalize();
 
 	return YAxis;
 }
@@ -322,6 +328,8 @@ Vector3<double> RenderObject::getLocalZAxis()
 		this->localAxis[3].x - this->localAxis[0].x,
 		this->localAxis[3].y - this->localAxis[0].y,
 		this->localAxis[3].z - this->localAxis[0].z);
+
+	ZAxis.normalize();
 
 	return ZAxis;
 }

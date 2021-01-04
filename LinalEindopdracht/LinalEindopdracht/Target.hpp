@@ -1,14 +1,17 @@
 #pragma once
 
 #include "RenderObject.hpp"
+#include "BoundingBox.hpp"
 
-class Target : public RenderObject
+class Target : public RenderObject, public BoundingBox
 {
-
 private:
-	int counter = 0;
-	int counterTarget = 50;
+	double counter = 0;
+	double counterTarget = 2;
 	bool shrink = false;
+
+	const double scaleSpeed = 15;
 public:
-	void update() override;
+	Target();
+	void update(double deltaTime) override;
 };

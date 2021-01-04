@@ -154,9 +154,9 @@ public:
 	void normalize() {
 		Scalar length = this->length();
 		if (length > 0) {
-			x /= length;
-			y /= length;
-			z /= length;
+			this->x /= length;
+			this->y /= length;
+			this->z /= length;
 		}
 	}
 
@@ -164,7 +164,7 @@ public:
 	*	Length of this vector.
 	*/
 	Scalar length() {
-		return sqrt(pow(x, 2) + pow(y, 2) + pow(z, 2));
+		return sqrt(x*x + y*y + z*z);
 	}
 
 	static Scalar inproduct(Vector3 v, Vector3 w) {

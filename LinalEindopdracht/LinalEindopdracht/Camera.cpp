@@ -116,6 +116,39 @@ void Camera::draw(sf::RenderWindow& window)
 			}
 		}
 	}
+
+	std::vector<sf::Color> colors{
+		sf::Color{255,0,0,255},
+		sf::Color{0,255,0,255},
+		sf::Color{0,0,255,255}
+	};
+	for (auto renderObject : this->scene.getRenderObjects())
+	{
+		for (int i = 1; i < 4; i++)
+		{
+			begin = renderObject->getLocalAxis()[0].projectTransform(m);
+			end = renderObject->getLocalAxis()[i].projectTransform(m);
+
+			begin = begin.getPerspectiveCoordinate(pm);
+			end = end.getPerspectiveCoordinate(pm);
+
+			if ((begin.w > 0) && (end.w > 0)) {
+				sf::Vertex edgeLine[]{
+					{
+						sf::Vector2f(nulpuntCanvasX + (int)(begin.x / begin.w * canvastWidth / begin.w),
+									 nulpuntCanvasY - (int)(begin.y / begin.w * canvastHeight / begin.w)),
+						colors[i - 1]
+					},
+					{
+						sf::Vector2f(nulpuntCanvasX + (int)(end.x / end.w * canvastWidth / end.w),
+									 nulpuntCanvasY - (int)(end.y / end.w * canvastHeight / end.w)),
+						colors[i - 1]
+					}
+				};
+				window.draw(edgeLine, 2, sf::Lines);
+			}
+		}
+	}
 }
 
 void Camera::transform(Matrix<double> m)

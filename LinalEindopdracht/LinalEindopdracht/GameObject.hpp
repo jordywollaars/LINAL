@@ -9,5 +9,5 @@ class GameObject : public Transform
 public:
 	GameObject(RenderObject* renderObject = nullptr) : Transform(renderObject) {}
 
-	virtual void update() {};
+	virtual void update(double deltaTime) {};
 };

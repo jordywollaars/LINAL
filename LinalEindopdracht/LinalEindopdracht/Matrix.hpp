@@ -209,7 +209,7 @@ public:
 	{
 		Matrix<double> matrix = Matrix<double>(4, 4);
 
-		double xz = std::sqrt(as.x * as.x + as.z * as.z);
+		double xz = std::sqrt((as.x * as.x) + (as.z * as.z));
 
 		if (xz == 0.0)
 		{
@@ -220,11 +220,11 @@ public:
 		}
 		else
 		{
-			matrix(0, 0) = as.x / xz; //cos
+			matrix(0, 0) = as.x / xz;
 			matrix(1, 1) = 1;
-			matrix(0, 2) = as.z / xz; //sin
-			matrix(2, 0) = -as.z / xz; //-sin
-			matrix(2, 2) = as.x / xz; //cos
+			matrix(0, 2) = as.z / xz;
+			matrix(2, 0) = -(as.z / xz);
+			matrix(2, 2) = as.x / xz;
 			matrix(3, 3) = 1;
 		}
 		return matrix;
@@ -234,15 +234,26 @@ public:
 	{
 		Matrix<double> matrix = Matrix<double>(4, 4);
 
-		double xz = std::sqrt(as.x * as.x + as.z * as.z);
-		double xyz = std::sqrt(as.x * as.x + as.y * as.y + as.z * as.z);
+		double xz = std::sqrt((as.x * as.x) + (as.z * as.z));
+		double xyz = std::sqrt((as.x * as.x) + (as.y * as.y) + (as.z * as.z));
 
-		matrix(0, 0) = xz / xyz;
-		matrix(0, 1) = as.y / xyz;
-		matrix(1, 0) = -as.y / xyz;
-		matrix(1, 1) = xz / xyz;
-		matrix(2, 2) = 1;
-		matrix(3, 3) = 1;
+
+		if (xz == 0.0 || xyz == 0.0)
+		{
+			matrix(0, 0) = 1;
+			matrix(1, 1) = 1;
+			matrix(2, 2) = 1;
+			matrix(3, 3) = 1;
+		}
+		else
+		{
+			matrix(0, 0) = xz / xyz;
+			matrix(0, 1) = as.y / xyz;
+			matrix(1, 0) = -(as.y / xyz);
+			matrix(1, 1) = xz / xyz;
+			matrix(2, 2) = 1;
+			matrix(3, 3) = 1;
+		}
 
 		return matrix;
 	}
@@ -251,15 +262,25 @@ public:
 	{
 		Matrix<double> matrix = Matrix<double>(4, 4);
 
-		double xz = std::sqrt(as.x * as.x + as.z * as.z);
-		double xyz = std::sqrt(as.x * as.x + as.y * as.y + as.z * as.z);
+		double xz = std::sqrt((as.x * as.x) + (as.z * as.z));
+		double xyz = std::sqrt((as.x * as.x) + (as.y * as.y) + (as.z * as.z));
 
-		matrix(0, 0) = xz / xyz;
-		matrix(0, 1) = -as.y / xyz;
-		matrix(1, 0) = as.y / xyz;
-		matrix(1, 1) = xz / xyz;
-		matrix(2, 2) = 1;
-		matrix(3, 3) = 1;
+		if (xz == 0.0 || xyz == 0.0)
+		{
+			matrix(0, 0) = 1;
+			matrix(1, 1) = 1;
+			matrix(2, 2) = 1;
+			matrix(3, 3) = 1;
+		}
+		else
+		{
+			matrix(0, 0) = xz / xyz;
+			matrix(0, 1) = -(as.y / xyz);
+			matrix(1, 0) = as.y / xyz;
+			matrix(1, 1) = xz / xyz;
+			matrix(2, 2) = 1;
+			matrix(3, 3) = 1;
+		}
 
 		return matrix;
 	}
@@ -268,7 +289,7 @@ public:
 	{
 		Matrix<double> matrix = Matrix<double>(4, 4);
 
-		double xz = std::sqrt(as.x * as.x + as.z * as.z);
+		double xz = std::sqrt((as.x * as.x) + (as.z * as.z));
 
 		if (xz == 0.0)
 		{
@@ -279,11 +300,11 @@ public:
 		}
 		else
 		{
-			matrix(0, 0) = as.x / xz; //cos
+			matrix(0, 0) = as.x / xz;
 			matrix(1, 1) = 1;
-			matrix(0, 2) = -as.z / xz; //sin
-			matrix(2, 0) = as.z / xz; //-sin
-			matrix(2, 2) = as.x / xz; //cos
+			matrix(0, 2) = -(as.z / xz);
+			matrix(2, 0) = as.z / xz;
+			matrix(2, 2) = as.x / xz;
 			matrix(3, 3) = 1;
 		}
 		return matrix;

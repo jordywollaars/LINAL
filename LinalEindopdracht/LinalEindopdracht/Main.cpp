@@ -29,24 +29,23 @@ int main() {
 
 	Scene* scene = new Scene();
 	RenderObject* spaceShip = new Spaceship(*inputHandler, *scene);
+	scene->add(spaceShip);
 	//renderObject->setStarRenderObject();
 	//spaceShip->setShipRenderObject();
-	scene->add(spaceShip);
 
-	RenderObject* sphere1 = new RenderObject();
-	RenderObject* sphere2 = new RenderObject();
-	RenderObject* sphere3 = new RenderObject();
-	RenderObject* sphere4 = new Target();
-	sphere4->setSphereRenderObject(4);
-	sphere4->transformObject(Matrix<double>::getScalingMatrix(4, 4, 4));
-	sphere4->transformObject(Matrix<double>::getTranslationMatrix(6.4, 22.4, -41.6));
-	scene->add(sphere4);
+	std::vector<BoundingBox*> boundingBoxes = std::vector<BoundingBox*>();
+
+	/*Target* target = new Target();
+	target->setSphereRenderObject(4);
+	target->transformObject(Matrix<double>::getScalingMatrix(4, 4, 4));
+	target->transformObject(Matrix<double>::getTranslationMatrix(6.4, 22.4, -41.6));
+	scene->add(target);*/
 
 	std::random_device rd;
 	std::mt19937 rng(rd());
 	std::uniform_real_distribution<double> uni(0, 100);
 
-	for (int i = 0; i < 50; i++)
+	/*for (int i = 0; i < 10; i++)
 	{
 		RenderObject* sphere = new RenderObject();
 		sphere->setSphereRenderObject(0);
@@ -57,14 +56,15 @@ int main() {
 		double y = uni(rng) - 50;
 		double z = uni(rng) - 50;
 		sphere->transformObject(Matrix<double>::getTranslationMatrix(x, y, z));
-	}
+	}*/
 
 	Camera* camera = new Camera(Vector3<double>(0, 0, 50), Vector3<double>(0, -20, 0), *scene);
 
-
+	sf::Clock deltaClock;
 	while (window.isOpen())
 	{
 		window.clear(sf::Color(0, 0, 0, 255));
+		inputHandler->clear();
 
 		sf::Event event;
 		while (window.pollEvent(event))
@@ -80,6 +80,8 @@ int main() {
 			}
 		}
 
+		sf::Time dt = deltaClock.restart();
+		
 		if (inputHandler->keyHold(sf::Keyboard::Key::Up))
 		{
 			Matrix<double> translationMatrix = Matrix<double>::getTranslationMatrix(.0, -.4, .0);
@@ -116,9 +118,10 @@ int main() {
 			camera->transform(translationMatrix);
 		}
 
-		scene->update();
+
+		scene->update(dt.asSeconds());
+		scene->updateCollisions();
 		camera->draw(window);
-		//scene->render(window);
 
 		window.display();
 	}

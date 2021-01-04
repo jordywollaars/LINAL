@@ -1,8 +1,12 @@
 #include "Target.hpp"
 
-void Target::update()
+Target::Target() : BoundingBox(this->getVertices())
 {
-	counter++;
+}
+
+void Target::update(double deltaTime)
+{
+	counter += deltaTime;
 
 	if (counter > counterTarget)
 	{

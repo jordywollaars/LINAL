@@ -4,175 +4,96 @@
 #include "Vector3.hpp"
 #include "Projectile.hpp"
 
-Spaceship::Spaceship(InputHandler& inputHandler, Scene& scene) : inputHandler{ inputHandler }, scene{scene}
+Spaceship::Spaceship(InputHandler& inputHandler, Scene& scene) : BoundingBox(this->getVertices()), inputHandler{ inputHandler }, scene{scene}
 {
-	this->setShipRenderObject();
+	this->setSphereRenderObject(0);
+
+	Matrix<double> toOrigin = Matrix<double>::getTranslationMatrix(this->getPivot().x, this->getPivot().y, this->getPivot().z);
+	Matrix<double> upscaleMatrix = Matrix<double>::getScalingMatrix(4, 4, 4);
+	Matrix<double> back = Matrix<double>::getTranslationMatrix(-this->getPivot().x, -this->getPivot().y, -this->getPivot().z);
+	this->transformVertices(toOrigin* upscaleMatrix* back);
 }
 
-void Spaceship::update()
+void Spaceship::shoot()
+{
+	this->scene.add(new Projectile(this->getPivot(), this->getLocalAxis(), this->scene));
+}
+
+void Spaceship::update(double deltaTime)
 {
 	//Shooting
 	if (inputHandler.keyDown(sf::Keyboard::Key::Space))
 	{
-		scene.add(new Projectile(this->getPivot(), this->getLocalAxis()));
+		shoot();
 	}
 
 	//Movement
 	if (inputHandler.keyHold(sf::Keyboard::Key::LShift))
 	{
-		Matrix<double> translationMatrixForward = Matrix<double>::getTranslationMatrix(-this->getLocalZAxis().x, -this->getLocalZAxis().y, -this->getLocalZAxis().z);
+		Matrix<double> translationMatrixForward = Matrix<double>::getTranslationMatrix(-this->getLocalZAxis().x * moveSpeed * deltaTime, -this->getLocalZAxis().y * moveSpeed * deltaTime, -this->getLocalZAxis().z * moveSpeed * deltaTime);
 		this->transformObject(translationMatrixForward);
 	}
 
 	//Rotating
 	if (inputHandler.keyHold(sf::Keyboard::Key::Q))
 	{
-		Vector3<double> localZAxis = this->getLocalZAxis();
-		localZAxis.normalize();
-
-		// translatiematrix naar de oorsprong
-		Matrix<double> to = Matrix<double>::getTranslationMatrix(this->getPivot().x, this->getPivot().y, this->getPivot().z);
-		// rotatiematrix om de y-as naar het xy-vlak
-		Matrix<double> m1 = Matrix<double>::getRotationMatrixM1(localZAxis);
-		// rotatiematrix om de z-as naar de x-as
-		Matrix<double> m2 = Matrix<double>::getRotationMatrixM2(localZAxis);
-		// rotatie om de x-as
-		Matrix<double> m3 = Matrix<double>::getRotationMatrixX(-1);
-		// rotatie om de z-as terug
-		Matrix<double> m4 = Matrix<double>::getRotationMatrixM4(localZAxis);
-		// rotatie om de y-as terug
-		Matrix<double> m5 = Matrix<double>::getRotationMatrixM5(localZAxis);
-		// translatiematrix "terug"
-		Matrix<double> back = Matrix<double>::getTranslationMatrix(-this->getPivot().x, -this->getPivot().y, -this->getPivot().z);
-		// vermenigvuldig alle matrices
-		Matrix<double> m = to * m1 * m2 * m3 * m4 * m5 * back;
+		Matrix<double> m = this->rotationMatrix(this->getLocalZAxis(), this->getPivot(), 1 * rotationSpeed * deltaTime);
 
 		this->transformObject(m);
-		//renderObject->rotateLocalAxis(m1 * m2 * m3 * m4 * m5);
 	}
 	if (inputHandler.keyHold(sf::Keyboard::Key::E))
 	{
-		Vector3<double> localZAxis = this->getLocalZAxis();
-		localZAxis.normalize();
-
-		// translatiematrix naar de oorsprong
-		Matrix<double> to = Matrix<double>::getTranslationMatrix(this->getPivot().x, this->getPivot().y, this->getPivot().z);
-		// rotatiematrix om de y-as naar het xy-vlak
-		Matrix<double> m1 = Matrix<double>::getRotationMatrixM1(localZAxis);
-		// rotatiematrix om de z-as naar de x-as
-		Matrix<double> m2 = Matrix<double>::getRotationMatrixM2(localZAxis);
-		// rotatie om de x-as
-		Matrix<double> m3 = Matrix<double>::getRotationMatrixX(1);
-		// rotatie om de z-as terug
-		Matrix<double> m4 = Matrix<double>::getRotationMatrixM4(localZAxis);
-		// rotatie om de y-as terug
-		Matrix<double> m5 = Matrix<double>::getRotationMatrixM5(localZAxis);
-		// translatiematrix "terug"
-		Matrix<double> back = Matrix<double>::getTranslationMatrix(-this->getPivot().x, -this->getPivot().y, -this->getPivot().z);
-		// vermenigvuldig alle matrices
-		Matrix<double> m = to * m1 * m2 * m3 * m4 * m5 * back;
+		Matrix<double> m = this->rotationMatrix(this->getLocalZAxis(), this->getPivot(), -1 * rotationSpeed * deltaTime);
 
 		this->transformObject(m);
-		//renderObject->rotateLocalAxis(m1 * m2 * m3 * m4 * m5);
 	}
 	if (inputHandler.keyHold(sf::Keyboard::Key::W))
 	{
-		Vector3<double> localXAxis = this->getLocalXAxis();
-		localXAxis.normalize();
-
-		// translatiematrix naar de oorsprong
-		Matrix<double> to = Matrix<double>::getTranslationMatrix(this->getPivot().x, this->getPivot().y, this->getPivot().z);
-		// rotatiematrix om de y-as naar het xy-vlak
-		Matrix<double> m1 = Matrix<double>::getRotationMatrixM1(localXAxis);
-		// rotatiematrix om de z-as naar de x-as
-		Matrix<double> m2 = Matrix<double>::getRotationMatrixM2(localXAxis);
-		// rotatie om de x-as
-		Matrix<double> m3 = Matrix<double>::getRotationMatrixX(1);
-		// rotatie om de z-as terug
-		Matrix<double> m4 = Matrix<double>::getRotationMatrixM4(localXAxis);
-		// rotatie om de y-as terug
-		Matrix<double> m5 = Matrix<double>::getRotationMatrixM5(localXAxis);
-		// translatiematrix "terug"
-		Matrix<double> back = Matrix<double>::getTranslationMatrix(-this->getPivot().x, -this->getPivot().y, -this->getPivot().z);
-		// vermenigvuldig alle matrices
-		Matrix<double> m = to * m1 * m2 * m3 * m4 * m5 * back;
+		Matrix<double> m = this->rotationMatrix(this->getLocalXAxis(), this->getPivot(), 1 * rotationSpeed * deltaTime);
 
 		this->transformObject(m);
-		//renderObject->rotateLocalAxis(m1* m2* m3* m4* m5);
 	}
 	if (inputHandler.keyHold(sf::Keyboard::Key::S))
 	{
-		Vector3<double> localXAxis = this->getLocalXAxis();
-		localXAxis.normalize();
-
-		// translatiematrix naar de oorsprong
-		Matrix<double> to = Matrix<double>::getTranslationMatrix(this->getPivot().x, this->getPivot().y, this->getPivot().z);
-		// rotatiematrix om de y-as naar het xy-vlak
-		Matrix<double> m1 = Matrix<double>::getRotationMatrixM1(localXAxis);
-		// rotatiematrix om de z-as naar de x-as
-		Matrix<double> m2 = Matrix<double>::getRotationMatrixM2(localXAxis);
-		// rotatie om de x-as
-		Matrix<double> m3 = Matrix<double>::getRotationMatrixX(-1);
-		// rotatie om de z-as terug
-		Matrix<double> m4 = Matrix<double>::getRotationMatrixM4(localXAxis);
-		// rotatie om de y-as terug
-		Matrix<double> m5 = Matrix<double>::getRotationMatrixM5(localXAxis);
-		// translatiematrix "terug"
-		Matrix<double> back = Matrix<double>::getTranslationMatrix(-this->getPivot().x, -this->getPivot().y, -this->getPivot().z);
-		// vermenigvuldig alle matrices
-		Matrix<double> m = to * m1 * m2 * m3 * m4 * m5 * back;
+		Matrix<double> m = this->rotationMatrix(this->getLocalXAxis(), this->getPivot(), -1 * rotationSpeed * deltaTime);
 
 		this->transformObject(m);
-		//renderObject->rotateLocalAxis(m1* m2* m3* m4* m5);
 	}
 	if (inputHandler.keyHold(sf::Keyboard::Key::A))
 	{
-		Vector3<double> localYAxis = this->getLocalYAxis();
-		localYAxis.normalize();
-
-		// translatiematrix naar de oorsprong
-		Matrix<double> to = Matrix<double>::getTranslationMatrix(this->getPivot().x, this->getPivot().y, this->getPivot().z);
-		// rotatiematrix om de y-as naar het xy-vlak
-		Matrix<double> m1 = Matrix<double>::getRotationMatrixM1(localYAxis);
-		// rotatiematrix om de z-as naar de x-as
-		Matrix<double> m2 = Matrix<double>::getRotationMatrixM2(localYAxis);
-		// rotatie om de x-as
-		Matrix<double> m3 = Matrix<double>::getRotationMatrixX(1);
-		// rotatie om de z-as terug
-		Matrix<double> m4 = Matrix<double>::getRotationMatrixM4(localYAxis);
-		// rotatie om de y-as terug
-		Matrix<double> m5 = Matrix<double>::getRotationMatrixM5(localYAxis);
-		// translatiematrix "terug"
-		Matrix<double> back = Matrix<double>::getTranslationMatrix(-this->getPivot().x, -this->getPivot().y, -this->getPivot().z);
-		// vermenigvuldig alle matrices
-		Matrix<double> m = to * m1 * m2 * m3 * m4 * m5 * back;
+		Matrix<double> m = this->rotationMatrix(this->getLocalYAxis(), this->getPivot(), 1 * rotationSpeed * deltaTime);
 
 		this->transformObject(m);
-		//renderObject->rotateLocalAxis(m1* m2* m3* m4* m5);
 	}
 	if (inputHandler.keyHold(sf::Keyboard::Key::D))
 	{
-		Vector3<double> localYAxis = this->getLocalYAxis();
-		localYAxis.normalize();
-
-		// translatiematrix naar de oorsprong
-		Matrix<double> to = Matrix<double>::getTranslationMatrix(this->getPivot().x, this->getPivot().y, this->getPivot().z);
-		// rotatiematrix om de y-as naar het xy-vlak
-		Matrix<double> m1 = Matrix<double>::getRotationMatrixM1(localYAxis);
-		// rotatiematrix om de z-as naar de x-as
-		Matrix<double> m2 = Matrix<double>::getRotationMatrixM2(localYAxis);
-		// rotatie om de x-as
-		Matrix<double> m3 = Matrix<double>::getRotationMatrixX(-1);
-		// rotatie om de z-as terug
-		Matrix<double> m4 = Matrix<double>::getRotationMatrixM4(localYAxis);
-		// rotatie om de y-as terug
-		Matrix<double> m5 = Matrix<double>::getRotationMatrixM5(localYAxis);
-		// translatiematrix "terug"
-		Matrix<double> back = Matrix<double>::getTranslationMatrix(-this->getPivot().x, -this->getPivot().y, -this->getPivot().z);
-		// vermenigvuldig alle matrices
-		Matrix<double> m = to * m1 * m2 * m3 * m4 * m5 * back;
+		Matrix<double> m = this->rotationMatrix(this->getLocalYAxis(), this->getPivot(), -1 * rotationSpeed * deltaTime);
 
 		this->transformObject(m);
-		//renderObject->rotateLocalAxis(m1* m2* m3* m4* m5);
 	}
+}
+
+void Spaceship::onCollision(BoundingBox* other)
+{
+	GameObject* go = dynamic_cast<Projectile*>(other);
+
+	if (other != this && !go)
+	{
+		scene.queueForDestruction(this);
+	}
+}
+
+Matrix<double> Spaceship::rotationMatrix(Vector3<double> rotationAxis, Vector3<double> centre, double degrees)
+{
+	Matrix<double> to = Matrix<double>::getTranslationMatrix(centre.x, centre.y, centre.z);
+	Matrix<double> m1 = Matrix<double>::getRotationMatrixM1(rotationAxis);
+	Matrix<double> m2 = Matrix<double>::getRotationMatrixM2(rotationAxis);
+	Matrix<double> m3 = Matrix<double>::getRotationMatrixX(degrees);
+	Matrix<double> m4 = Matrix<double>::getRotationMatrixM4(rotationAxis);
+	Matrix<double> m5 = Matrix<double>::getRotationMatrixM5(rotationAxis);
+	Matrix<double> back = Matrix<double>::getTranslationMatrix(-centre.x, -centre.y, -centre.z);
+
+	Matrix<double> m = (((((to * m1) * m2) * m3) * m4) * m5) * back;
+
+	return m;
 }

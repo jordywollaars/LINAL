@@ -12,6 +12,9 @@ class RenderObject : public GameObject
 {
 public:
 	RenderObject() : GameObject(this) {
+		vertices = std::vector<Vector3<double>>();
+		edges = std::vector<Edge<double>>();
+
 		localAxis = std::vector<Vector3<double>>{
 			Vector3<double>{0, 0, 0},
 			Vector3<double>{1, 0, 0},
@@ -83,18 +86,6 @@ public:
 		edges.push_back(Edge<double>(vertices[9], vertices[19]));
 
 		//this->pivot = Vector3<double>(0, 0, 0);
-
-		/*for (auto vertex : vertices)
-		{
-			vertex.print();
-		}*/
-
-		/*this->setPosition(Vector3<double>(200, 200, 200));
-		this->setScale(Vector3<double>(0.5, 0.5, 0.5));
-
-		this->setRotation(Vector3<double>(90, 0, 0));*/
-		//this->pivot.print();
-		//this->pivot.print();
 	}
 	void setSphereRenderObject(int levelOfDetail);
 	void setShipRenderObject();
