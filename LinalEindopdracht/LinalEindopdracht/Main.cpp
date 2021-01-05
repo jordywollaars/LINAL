@@ -28,6 +28,9 @@ int main() {
 	InputHandler* inputHandler = new InputHandler();
 
 	Scene* scene = new Scene();
+	Camera* camera = new Camera(Vector3<double>(0, 0, 50), Vector3<double>(0, -20, 0), *scene, *inputHandler);
+	scene->add(camera);
+
 	RenderObject* spaceShip = new Spaceship(*inputHandler, *scene);
 	scene->add(spaceShip);
 	//renderObject->setStarRenderObject();
@@ -58,8 +61,6 @@ int main() {
 		sphere->transformObject(Matrix<double>::getTranslationMatrix(x, y, z));
 	}
 
-	Camera* camera = new Camera(Vector3<double>(0, 0, 50), Vector3<double>(0, -20, 0), *scene);
-
 	sf::Clock deltaClock;
 	while (window.isOpen())
 	{
@@ -82,42 +83,6 @@ int main() {
 
 		sf::Time dt = deltaClock.restart();
 		
-		if (inputHandler->keyHold(sf::Keyboard::Key::Up))
-		{
-			Matrix<double> translationMatrix = Matrix<double>::getTranslationMatrix(.0, -.4, .0);
-			camera->transform(translationMatrix);
-		}
-
-		if (inputHandler->keyHold(sf::Keyboard::Key::Down))
-		{
-			Matrix<double> translationMatrix = Matrix<double>::getTranslationMatrix(.0, .4, .0);
-			camera->transform(translationMatrix);
-		}
-
-		if (inputHandler->keyHold(sf::Keyboard::Key::Left))
-		{
-			Matrix<double> translationMatrix = Matrix<double>::getTranslationMatrix(.4, .0, .0);
-			camera->transform(translationMatrix);
-		}
-
-		if (inputHandler->keyHold(sf::Keyboard::Key::Right))
-		{
-			Matrix<double> translationMatrix = Matrix<double>::getTranslationMatrix(-.4, .0, .0);
-			camera->transform(translationMatrix);
-		}
-
-		if (inputHandler->keyHold(sf::Keyboard::Key::PageUp))
-		{
-			Matrix<double> translationMatrix = Matrix<double>::getTranslationMatrix(.0, .0, .4);
-			camera->transform(translationMatrix);
-		}
-
-		if (inputHandler->keyHold(sf::Keyboard::Key::PageDown))
-		{
-			Matrix<double> translationMatrix = Matrix<double>::getTranslationMatrix(.0, .0, -.4);
-			camera->transform(translationMatrix);
-		}
-
 		scene->update(dt.asSeconds());
 		scene->updateCollisions();
 		camera->draw(window);

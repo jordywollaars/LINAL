@@ -1,15 +1,15 @@
 #include "Camera.hpp"
 
-Camera::Camera(Vector3<double> eyePosition, Vector3<double> lookAtPosition, Scene& scene) : scene{ scene }
+Camera::Camera(Vector3<double> eyePosition, Vector3<double> lookAtPosition, Scene& scene, InputHandler& inputHandler) : scene{ scene }, inputHandler{ inputHandler }
 {
 	this->eyePosition = eyePosition;
 	this->lookAtPosition = lookAtPosition;
 
 	this->direction = eyePosition - lookAtPosition;
 	this->direction.normalize();
-	this->right = Vector3<double>::outproduct(this->up, this->direction);
+	this->right = Vector3<double>::normal(this->up, this->direction);
 	this->right.normalize();
-	this->up = Vector3<double>::outproduct(this->direction, this->right);
+	this->up = Vector3<double>::normal(this->direction, this->right);
 	this->up.normalize();
 
 	this->direction.print();
@@ -151,19 +151,72 @@ void Camera::draw(sf::RenderWindow& window)
 	}
 }
 
-void Camera::transform(Matrix<double> m)
+void Camera::transformPosition(Matrix<double> m)
 {
 	eyePosition.transform(m);
+	lookAtPosition.transform(m);
 
 	this->direction = eyePosition - lookAtPosition;
 	this->direction.normalize();
-	this->right = Vector3<double>::outproduct(this->up, this->direction);
+	this->right = Vector3<double>::normal(this->up, this->direction);
 	this->right.normalize();
-	this->up = Vector3<double>::outproduct(this->direction, this->right);
+	this->up = Vector3<double>::normal(this->direction, this->right);
+	this->up.normalize();
+}
+
+void Camera::transformLookAt(Matrix<double> m)
+{
+	//eyePosition.transform(m);
+	lookAtPosition.transform(m);
+
+	this->direction = eyePosition - lookAtPosition;
+	this->direction.normalize();
+	this->right = Vector3<double>::normal(this->up, this->direction);
+	this->right.normalize();
+	this->up = Vector3<double>::normal(this->direction, this->right);
 	this->up.normalize();
 }
 
 void Camera::setLookAtPosition(Vector3<double> lookAt)
 {
 	this->lookAtPosition = lookAt;
+}
+
+void Camera::update(double deltaTime)
+{
+	if (inputHandler.keyHold(sf::Keyboard::Key::Up))
+	{
+		Matrix<double> translationMatrix = Matrix<double>::getTranslationMatrix(-this->up.x * moveSpeed * deltaTime, -this->up.y * moveSpeed * deltaTime, -this->up.z * moveSpeed * deltaTime);
+		this->transformPosition(translationMatrix);
+	}
+
+	if (inputHandler.keyHold(sf::Keyboard::Key::Down))
+	{
+		Matrix<double> translationMatrix = Matrix<double>::getTranslationMatrix(this->up.x * moveSpeed * deltaTime, this->up.y * moveSpeed * deltaTime, this->up.z * moveSpeed * deltaTime);
+		this->transformPosition(translationMatrix);
+	}
+
+	if (inputHandler.keyHold(sf::Keyboard::Key::Left))
+	{
+		Matrix<double> translationMatrix = Matrix<double>::getTranslationMatrix(this->right.x * moveSpeed * deltaTime, this->right.y * moveSpeed * deltaTime, this->right.z * moveSpeed * deltaTime);
+		this->transformPosition(translationMatrix);
+	}
+
+	if (inputHandler.keyHold(sf::Keyboard::Key::Right))
+	{
+		Matrix<double> translationMatrix = Matrix<double>::getTranslationMatrix(-this->right.x * moveSpeed * deltaTime, -this->right.y * moveSpeed * deltaTime, -this->right.z * moveSpeed * deltaTime);
+		this->transformPosition(translationMatrix);
+	}
+
+	if (inputHandler.keyHold(sf::Keyboard::Key::PageUp))
+	{
+		Matrix<double> translationMatrix = Matrix<double>::getTranslationMatrix(-this->direction.x * moveSpeed * deltaTime, -this->direction.y * moveSpeed * deltaTime, -this->direction.z * moveSpeed * deltaTime);
+		this->transformPosition(translationMatrix);
+	}
+
+	if (inputHandler.keyHold(sf::Keyboard::Key::PageDown))
+	{
+		Matrix<double> translationMatrix = Matrix<double>::getTranslationMatrix(this->direction.x * moveSpeed * deltaTime, this->direction.y * moveSpeed * deltaTime, this->direction.z * moveSpeed * deltaTime);
+		this->transformPosition(translationMatrix);
+	}
 }

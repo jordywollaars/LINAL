@@ -167,17 +167,19 @@ public:
 		return sqrt(x*x + y*y + z*z);
 	}
 
-	static Scalar inproduct(Vector3 v, Vector3 w) {
+	//inproduct
+	static Scalar dotProduct(Vector3 v, Vector3 w) {
 		double result;
 
-		result += v.x + w.x;
-		result += v.y + w.y;
-		result += v.z + w.z;
+		result += v.x * w.x;
+		result += v.y * w.y;
+		result += v.z * w.z;
 
 		return result;
 	}
 
-	static Vector3<Scalar> outproduct(Vector3 v, Vector3 w) {
+	//uitproduct
+	static Vector3<Scalar> normal(Vector3 v, Vector3 w) {
 		Vector3<Scalar> result;
 
 		result.x = v.y * w.z - v.z * w.y;

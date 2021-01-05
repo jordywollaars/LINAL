@@ -61,7 +61,7 @@ public:
 		{
 			for (j = 0; j < this->colSize; j++)
 			{
-				result(i, j) = this->m_matrix[i][j] + scalar;
+				result(i, j) = this->matrix[i][j] + scalar;
 			}
 		}
 		return result;
@@ -75,7 +75,7 @@ public:
 		{
 			for (j = 0; j < this->colSize; j++)
 			{
-				result(i, j) = this->m_matrix[i][j] - scalar;
+				result(i, j) = this->matrix[i][j] - scalar;
 			}
 		}
 		return result;
@@ -89,7 +89,7 @@ public:
 		{
 			for (j = 0; j < this->colSize; j++)
 			{
-				result(i, j) = this->m_matrix[i][j] * scalar;
+				result(i, j) = this->matrix[i][j] * scalar;
 			}
 		}
 		return result;
@@ -103,7 +103,7 @@ public:
 		{
 			for (j = 0; j < this->colSize; j++)
 			{
-				result(i, j) = this->m_matrix[i][j] / scalar;
+				result(i, j) = this->matrix[i][j] / scalar;
 			}
 		}
 		return result;
@@ -308,6 +308,21 @@ public:
 			matrix(3, 3) = 1;
 		}
 		return matrix;
+	}
+
+	static Matrix<double> rotationMatrix(Vector3<double> rotationAxis, Vector3<double> centre, double degrees)
+	{
+		Matrix<double> to = Matrix<double>::getTranslationMatrix(centre.x, centre.y, centre.z);
+		Matrix<double> m1 = Matrix<double>::getRotationMatrixM1(rotationAxis);
+		Matrix<double> m2 = Matrix<double>::getRotationMatrixM2(rotationAxis);
+		Matrix<double> m3 = Matrix<double>::getRotationMatrixX(degrees);
+		Matrix<double> m4 = Matrix<double>::getRotationMatrixM4(rotationAxis);
+		Matrix<double> m5 = Matrix<double>::getRotationMatrixM5(rotationAxis);
+		Matrix<double> back = Matrix<double>::getTranslationMatrix(-centre.x, -centre.y, -centre.z);
+
+		Matrix<double> m = to * m5 * m4 * m3 * m2 * m1 * back;
+
+		return m;
 	}
 private:
 	unsigned int rowSize;

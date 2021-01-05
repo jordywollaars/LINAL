@@ -6,19 +6,27 @@
 #include "Matrix.hpp"
 
 #include "Scene.hpp"
+#include "InputHandler.hpp"
 
-class Camera {
+class Camera : public GameObject {
 public:
-	Camera(Vector3<double> eyePosition, Vector3<double> lookAtPosition, Scene& scene);
+	Camera(Vector3<double> eyePosition, Vector3<double> lookAtPosition, Scene& scene, InputHandler& inputHandler);
 
 	Matrix<double> getInverse();
 	Matrix<double> originTranslate();
 
 	void draw(sf::RenderWindow& window);
 
-	void transform(Matrix<double> m);
+	void transformPosition(Matrix<double> m);
+	void transformLookAt(Matrix<double> m);
 
 	void setLookAtPosition(Vector3<double> lookAt);
+
+	Vector3<double> getLocalXAxis();
+	Vector3<double> getLocalYAxis();
+	Vector3<double> getLocalZAxis();
+
+	void update(double deltaTime);
 private:
 	Vector3<double> eyePosition;
 	Vector3<double> lookAtPosition;
@@ -28,6 +36,10 @@ private:
 	Vector3<double> right;
 
 	Scene& scene;
+	InputHandler& inputHandler;
+
+	double moveSpeed = 5;
+	double rotationSpeed = 15;
 
 	double near = 0.1;
 	double far = 1000.0;

@@ -14,68 +14,66 @@ Spaceship::Spaceship(InputHandler& inputHandler, Scene& scene) : BoundingBox(thi
 	//this->transformVertices(toOrigin* upscaleMatrix* back);
 }
 
-void Spaceship::shoot()
+void Spaceship::shoot(double relativeSpeed)
 {
-	this->scene.add(new Projectile(this->getPivot(), this->getLocalAxis(), this->scene));
+	this->scene.add(new Projectile(this->getPivot(), this->getLocalAxis(), this->scene, relativeSpeed));
 }
 
 void Spaceship::update(double deltaTime)
 {
-	//Shooting
-	if (inputHandler.keyDown(sf::Keyboard::Key::Space))
-	{
-		shoot();
-	}
+	double currentSpeed = 0;
 
 	//Movement
 	if (inputHandler.keyHold(sf::Keyboard::Key::LShift))
 	{
 		Matrix<double> translationMatrixForward = Matrix<double>::getTranslationMatrix(-this->getLocalZAxis().x * moveSpeed * deltaTime, -this->getLocalZAxis().y * moveSpeed * deltaTime, -this->getLocalZAxis().z * moveSpeed * deltaTime);
 		this->transformObject(translationMatrixForward);
-	}
 
-	if (inputHandler.keyHold(sf::Keyboard::Key::RShift))
-	{
-		Matrix<double> translationMatrixForward = Matrix<double>::getTranslationMatrix(-this->getLocalXAxis().x * moveSpeed * deltaTime, -this->getLocalXAxis().y * moveSpeed * deltaTime, -this->getLocalXAxis().z * moveSpeed * deltaTime);
-		this->transformObject(translationMatrixForward);
+		currentSpeed = moveSpeed;
 	}
 
 	//Rotating
 	if (inputHandler.keyHold(sf::Keyboard::Key::Q))
 	{
-		Matrix<double> m = this->rotationMatrix(this->getLocalZAxis(), this->getPivot(), 1 * rotationSpeed * deltaTime);
+		Matrix<double> m = Matrix<double>::rotationMatrix(this->getLocalZAxis(), this->getPivot(), rotationSpeed * deltaTime);
 
 		this->transformObject(m);
 	}
 	if (inputHandler.keyHold(sf::Keyboard::Key::E))
 	{
-		Matrix<double> m = this->rotationMatrix(this->getLocalZAxis(), this->getPivot(), -1 * rotationSpeed * deltaTime);
+		Matrix<double> m = Matrix<double>::rotationMatrix(this->getLocalZAxis(), this->getPivot(), -rotationSpeed * deltaTime);
 
 		this->transformObject(m);
 	}
 	if (inputHandler.keyHold(sf::Keyboard::Key::W))
 	{
-		Matrix<double> m = this->rotationMatrix(this->getLocalXAxis(), this->getPivot(), 1 * rotationSpeed * deltaTime);
+		Matrix<double> m = Matrix<double>::rotationMatrix(this->getLocalXAxis(), this->getPivot(), rotationSpeed * deltaTime);
 
 		this->transformObject(m);
 	}
 	if (inputHandler.keyHold(sf::Keyboard::Key::S))
 	{
-		Matrix<double> m = this->rotationMatrix(this->getLocalXAxis(), this->getPivot(), -1 * rotationSpeed * deltaTime);
+		Matrix<double> m = Matrix<double>::rotationMatrix(this->getLocalXAxis(), this->getPivot(), -rotationSpeed * deltaTime);
 
 		this->transformObject(m);
 	}
 	if (inputHandler.keyHold(sf::Keyboard::Key::A))
 	{
-		Matrix<double> m = this->rotationMatrix(this->getLocalYAxis(), this->getPivot(), 1 * rotationSpeed * deltaTime);
+		Matrix<double> m = Matrix<double>::rotationMatrix(this->getLocalYAxis(), this->getPivot(), -rotationSpeed * deltaTime);
 
 		this->transformObject(m);
 	}
 	if (inputHandler.keyHold(sf::Keyboard::Key::D))
 	{
-		Matrix<double> m = this->rotationMatrix(this->getLocalYAxis(), this->getPivot(), -1 * rotationSpeed * deltaTime);
+		Matrix<double> m = Matrix<double>::rotationMatrix(this->getLocalYAxis(), this->getPivot(), rotationSpeed * deltaTime);
 
 		this->transformObject(m);
+	}
+
+	//Shooting
+	if (inputHandler.keyDown(sf::Keyboard::Key::Space))
+	{
+		shoot(currentSpeed);
 	}
 }
 
@@ -87,19 +85,4 @@ void Spaceship::onCollision(BoundingBox* other)
 	{
 		scene.queueForDestruction(this);
 	}
-}
-
-Matrix<double> Spaceship::rotationMatrix(Vector3<double> rotationAxis, Vector3<double> centre, double degrees)
-{
-	Matrix<double> to = Matrix<double>::getTranslationMatrix(centre.x, centre.y, centre.z);
-	Matrix<double> m1 = Matrix<double>::getRotationMatrixM1(rotationAxis);
-	Matrix<double> m2 = Matrix<double>::getRotationMatrixM2(rotationAxis);
-	Matrix<double> m3 = Matrix<double>::getRotationMatrixX(degrees);
-	Matrix<double> m4 = Matrix<double>::getRotationMatrixM4(rotationAxis);
-	Matrix<double> m5 = Matrix<double>::getRotationMatrixM5(rotationAxis);
-	Matrix<double> back = Matrix<double>::getTranslationMatrix(-centre.x, -centre.y, -centre.z);
-
-	Matrix<double> m = to * m5 * m4 * m3 * m2 * m1 * back;
-
-	return m;
 }
