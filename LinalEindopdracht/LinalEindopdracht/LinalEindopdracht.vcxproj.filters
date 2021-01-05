@@ -127,5 +127,8 @@
     <ClInclude Include="BoundingBox.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Planet.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

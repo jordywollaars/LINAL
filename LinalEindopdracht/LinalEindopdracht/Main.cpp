@@ -13,6 +13,7 @@
 #include <random>
 
 #include "InputHandler.hpp"
+#include "Planet.hpp"
 #include "Spaceship.hpp"
 
 int main() {
@@ -50,7 +51,7 @@ int main() {
 
 	for (int i = 0; i < 10; i++)
 	{
-		RenderObject* sphere = new RenderObject();
+		RenderObject* sphere = new Planet();
 		sphere->setSphereRenderObject(0);
 		scene->add(sphere);
 

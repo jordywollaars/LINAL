@@ -21,6 +21,8 @@ void Target::update(double deltaTime)
 		Matrix<double> upscaleMatrix = Matrix<double>::getScalingMatrix(1.01, 1.01, 1.01);
 		Matrix<double> back = Matrix<double>::getTranslationMatrix(-this->getPivot().x, -this->getPivot().y, -this->getPivot().z);
 		this->transformObject(toOrigin * upscaleMatrix * back);
+
+		this->updateBoundingBox();
 	}
 	else
 	{
@@ -28,5 +30,7 @@ void Target::update(double deltaTime)
 		Matrix<double> upscaleMatrix = Matrix<double>::getScalingMatrix(.99, .99, .99);
 		Matrix<double> back = Matrix<double>::getTranslationMatrix(-this->getPivot().x, -this->getPivot().y, -this->getPivot().z);
 		this->transformObject(toOrigin * upscaleMatrix * back);
+
+		this->updateBoundingBox();
 	}
 }
