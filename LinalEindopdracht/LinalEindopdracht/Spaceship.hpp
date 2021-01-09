@@ -4,6 +4,7 @@
 #include "InputHandler.hpp"
 #include "Scene.hpp"
 #include "BoundingBox.hpp"
+#include "Camera.hpp"
 
 class Spaceship : public RenderObject, public BoundingBox
 {
@@ -13,8 +14,11 @@ private:
 
 	InputHandler& inputHandler;
 	Scene& scene;
+	Camera& camera;
+
+	bool lookAt = false;
 public:
-	Spaceship(InputHandler& inputHandler, Scene& scene);
+	Spaceship(InputHandler& inputHandler, Scene& scene, Camera& camera);
 	void shoot(double relativeSpeed);
 
 	void update(double deltaTime);

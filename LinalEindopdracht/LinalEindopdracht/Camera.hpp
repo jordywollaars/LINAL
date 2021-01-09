@@ -18,7 +18,6 @@ public:
 	void draw(sf::RenderWindow& window);
 
 	void transformPosition(Matrix<double> m);
-	void transformLookAt(Matrix<double> m);
 
 	void setLookAtPosition(Vector3<double> lookAt);
 

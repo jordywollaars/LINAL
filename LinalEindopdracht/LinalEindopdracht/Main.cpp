@@ -29,10 +29,11 @@ int main() {
 	InputHandler* inputHandler = new InputHandler();
 
 	Scene* scene = new Scene();
-	Camera* camera = new Camera(Vector3<double>(0, 0, 50), Vector3<double>(0, -20, 0), *scene, *inputHandler);
+	Camera* camera = new Camera(Vector3<double>(0, 10, 50), Vector3<double>(0, 0, 0), *scene, *inputHandler);
 	scene->add(camera);
 
-	RenderObject* spaceShip = new Spaceship(*inputHandler, *scene);
+	RenderObject* spaceShip = new Spaceship(*inputHandler, *scene, *camera);
+	//spaceShip->transformObject(Matrix<double>::getTranslationMatrix(20, 20, 20));
 	scene->add(spaceShip);
 	//renderObject->setStarRenderObject();
 	//spaceShip->setShipRenderObject();
@@ -49,7 +50,7 @@ int main() {
 	std::mt19937 rng(rd());
 	std::uniform_real_distribution<double> uni(0, 100);
 
-	for (int i = 0; i < 10; i++)
+	/*for (int i = 0; i < 10; i++)
 	{
 		RenderObject* sphere = new Planet();
 		sphere->setSphereRenderObject(0);
@@ -60,7 +61,7 @@ int main() {
 		double y = uni(rng) - 50;
 		double z = uni(rng) - 50;
 		sphere->transformObject(Matrix<double>::getTranslationMatrix(x, y, z));
-	}
+	}*/
 
 	sf::Clock deltaClock;
 	while (window.isOpen())

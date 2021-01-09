@@ -7,7 +7,7 @@ class Target : public RenderObject, public BoundingBox
 {
 private:
 	double counter = 0;
-	double counterTarget = 2;
+	double counterTarget = .75;
 	bool shrink = false;
 
 	const double scaleSpeed = 15;

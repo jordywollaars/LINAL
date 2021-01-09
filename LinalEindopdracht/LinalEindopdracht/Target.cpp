@@ -18,7 +18,7 @@ void Target::update(double deltaTime)
 	if (!shrink)
 	{
 		Matrix<double> toOrigin = Matrix<double>::getTranslationMatrix(this->getPivot().x, this->getPivot().y, this->getPivot().z);
-		Matrix<double> upscaleMatrix = Matrix<double>::getScalingMatrix(1.01, 1.01, 1.01);
+		Matrix<double> upscaleMatrix = Matrix<double>::getScalingMatrix(1 + .9 * deltaTime, 1 + .9 * deltaTime, 1 + .9 * deltaTime);
 		Matrix<double> back = Matrix<double>::getTranslationMatrix(-this->getPivot().x, -this->getPivot().y, -this->getPivot().z);
 		this->transformObject(toOrigin * upscaleMatrix * back);
 
@@ -27,7 +27,7 @@ void Target::update(double deltaTime)
 	else
 	{
 		Matrix<double> toOrigin = Matrix<double>::getTranslationMatrix(this->getPivot().x, this->getPivot().y, this->getPivot().z);
-		Matrix<double> upscaleMatrix = Matrix<double>::getScalingMatrix(.99, .99, .99);
+		Matrix<double> upscaleMatrix = Matrix<double>::getScalingMatrix(1 - .9 * deltaTime, 1 - .9 * deltaTime, 1 - .9 * deltaTime);
 		Matrix<double> back = Matrix<double>::getTranslationMatrix(-this->getPivot().x, -this->getPivot().y, -this->getPivot().z);
 		this->transformObject(toOrigin * upscaleMatrix * back);
 

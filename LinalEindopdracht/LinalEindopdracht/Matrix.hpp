@@ -135,6 +135,7 @@ public:
 		return this->rowSize;
 	}
 
+	//Get a translation matrix
 	static Matrix getTranslationMatrix(Scalar tx, Scalar ty, Scalar tz)
 	{
 		Matrix<Scalar> matrix = Matrix<Scalar>(4, 4);
@@ -149,6 +150,7 @@ public:
 		return matrix;
 	}
 
+	//Get a scale matrix
 	static Matrix getScalingMatrix(Scalar sx, Scalar sy, Scalar sz)
 	{
 		Matrix<Scalar> matrix = Matrix<Scalar>(4, 4);
@@ -160,6 +162,7 @@ public:
 		return matrix;
 	}
 
+	//Rotate around global x axis
 	static Matrix getRotationMatrixX(Scalar angleXDegree)
 	{
 		Scalar a = angleXDegree / 180 * M_PI;
@@ -175,6 +178,7 @@ public:
 		return matrix;
 	}
 
+	//Rotate around global y axis
 	static Matrix getRotationMatrixY(Scalar angleXDegree)
 	{
 		Scalar a = angleXDegree / 180 * M_PI;
@@ -190,6 +194,7 @@ public:
 		return matrix;
 	}
 
+	//Rotate around global z axis
 	static Matrix getRotationMatrixZ(Scalar angleXDegree)
 	{
 		Scalar a = angleXDegree / 180 * M_PI;
@@ -205,6 +210,7 @@ public:
 		return matrix;
 	}
 
+	//Rotate around y-axis towards xy
 	static Matrix getRotationMatrixM1(Vector3<Scalar> as)
 	{
 		Matrix<double> matrix = Matrix<double>(4, 4);
@@ -220,16 +226,17 @@ public:
 		}
 		else
 		{
-			matrix(0, 0) = as.x / xz;
+			matrix(0, 0) = as.x / xz;//cos
 			matrix(1, 1) = 1;
-			matrix(0, 2) = as.z / xz;
-			matrix(2, 0) = -(as.z / xz);
-			matrix(2, 2) = as.x / xz;
+			matrix(0, 2) = as.z / xz;//sin
+			matrix(2, 0) = -(as.z / xz);//-sin
+			matrix(2, 2) = as.x / xz;//cos
 			matrix(3, 3) = 1;
 		}
 		return matrix;
 	}
 
+	//Rotate around z-axis towards x-axis
 	static Matrix getRotationMatrixM2(Vector3<Scalar> as)
 	{
 		Matrix<Scalar> matrix = Matrix<Scalar>(4, 4);
@@ -247,10 +254,10 @@ public:
 		}
 		else
 		{
-			matrix(0, 0) = xz / xyz;
-			matrix(0, 1) = as.y / xyz;
-			matrix(1, 0) = -(as.y / xyz);
-			matrix(1, 1) = xz / xyz;
+			matrix(0, 0) = xz / xyz; //cos
+			matrix(0, 1) = as.y / xyz; //sin
+			matrix(1, 0) = -(as.y / xyz); //-sin
+			matrix(1, 1) = xz / xyz; //cos
 			matrix(2, 2) = 1;
 			matrix(3, 3) = 1;
 		}
@@ -258,6 +265,7 @@ public:
 		return matrix;
 	}
 
+	//Rotate back around z-axis
 	static Matrix getRotationMatrixM4(Vector3<Scalar> as)
 	{
 		Matrix<Scalar> matrix = Matrix<Scalar>(4, 4);
@@ -274,10 +282,10 @@ public:
 		}
 		else
 		{
-			matrix(0, 0) = xz / xyz;
-			matrix(0, 1) = -(as.y / xyz);
-			matrix(1, 0) = as.y / xyz;
-			matrix(1, 1) = xz / xyz;
+			matrix(0, 0) = xz / xyz; //cos
+			matrix(0, 1) = -(as.y / xyz);//-sin
+			matrix(1, 0) = as.y / xyz;//sin
+			matrix(1, 1) = xz / xyz;//cos
 			matrix(2, 2) = 1;
 			matrix(3, 3) = 1;
 		}
@@ -285,6 +293,7 @@ public:
 		return matrix;
 	}
 
+	//Rotate back around y-axis
 	static Matrix getRotationMatrixM5(Vector3<Scalar> as)
 	{
 		Matrix<Scalar> matrix = Matrix<Scalar>(4, 4);
@@ -300,16 +309,17 @@ public:
 		}
 		else
 		{
-			matrix(0, 0) = as.x / xz;
+			matrix(0, 0) = as.x / xz;//cos
 			matrix(1, 1) = 1;
-			matrix(0, 2) = -(as.z / xz);
-			matrix(2, 0) = as.z / xz;
-			matrix(2, 2) = as.x / xz;
+			matrix(0, 2) = -(as.z / xz);//-sin
+			matrix(2, 0) = as.z / xz;//sin
+			matrix(2, 2) = as.x / xz;//cos
 			matrix(3, 3) = 1;
 		}
 		return matrix;
 	}
 
+	//Rotate around a given vector on an axis
 	static Matrix<double> rotationMatrix(Vector3<double> rotationAxis, Vector3<double> centre, double degrees)
 	{
 		Matrix<double> to = Matrix<double>::getTranslationMatrix(centre.x, centre.y, centre.z);

@@ -86,59 +86,59 @@ void RenderObject::setShipRenderObject()
 	//Hull
 
 	//Ring 1
-	vertices.push_back(Vector3<double>(-0.620761, -0.148589, -4.603570));
 	vertices.push_back(Vector3<double>(-0.620761, 0.148589, -4.603570));
-	vertices.push_back(Vector3<double>(0.635302, -0.148589, -4.603570));
+	vertices.push_back(Vector3<double>(-0.620761, -0.148589, -4.603570));
 	vertices.push_back(Vector3<double>(0.635302, 0.148589, -4.603570));
+	vertices.push_back(Vector3<double>(0.635302, -0.148589, -4.603570));
 
 	//Ring 2
-	vertices.push_back(Vector3<double>(-0.806886, -0.275101, -1.718086));
-	vertices.push_back(Vector3<double>(-0.806886, 0.370099, -1.745406));
-	vertices.push_back(Vector3<double>(0.821426, -0.275101, -1.718086));
-	vertices.push_back(Vector3<double>(0.821426, 0.370099, -1.745406));
+	vertices.push_back(Vector3<double>(-0.806886, 0.275101, -1.718086));
+	vertices.push_back(Vector3<double>(-0.806886, -0.370099, -1.745406));
+	vertices.push_back(Vector3<double>(0.821426, 0.275101, -1.718086));
+	vertices.push_back(Vector3<double>(0.821426, -0.370099, -1.745406));
 
 	//Ring 3
-	vertices.push_back(Vector3<double>(-0.838768, -0.503040, -1.283142));
-	vertices.push_back(Vector3<double>(-0.838768, 0.408043, -1.255822));
-	vertices.push_back(Vector3<double>(0.853308, -0.503040, -1.283142));
-	vertices.push_back(Vector3<double>(0.853308, 0.408043, -1.255822));
+	vertices.push_back(Vector3<double>(-0.838768, 0.503040, -1.283142));
+	vertices.push_back(Vector3<double>(-0.838768, -0.408043, -1.255822));
+	vertices.push_back(Vector3<double>(0.853308, 0.503040, -1.283142));
+	vertices.push_back(Vector3<double>(0.853308, -0.408043, -1.255822));
 
 	//Ring 4
-	vertices.push_back(Vector3<double>(-0.947424, -0.537356, 0.412728));
 	vertices.push_back(Vector3<double>(-0.947424, 0.537356, 0.412728));
-	vertices.push_back(Vector3<double>(0.961964, -0.537356, 0.412728));
+	vertices.push_back(Vector3<double>(-0.947424, -0.537356, 0.412728));
 	vertices.push_back(Vector3<double>(0.961964, 0.537356, 0.412728));
+	vertices.push_back(Vector3<double>(0.961964, -0.537356, 0.412728));
 
 	//Ring 5
-	vertices.push_back(Vector3<double>(-0.947424, -0.591276, 1.108456));
 	vertices.push_back(Vector3<double>(-0.947424, 0.591276, 1.108456));
-	vertices.push_back(Vector3<double>(0.961964, -0.591276, 1.108456));
+	vertices.push_back(Vector3<double>(-0.947424, -0.591276, 1.108456));
 	vertices.push_back(Vector3<double>(0.961964, 0.591276, 1.108456));
+	vertices.push_back(Vector3<double>(0.961964, -0.591276, 1.108456));
 
 	//Left Wing				 
-	vertices.push_back(Vector3<double>(-3.178952, -0.087054, -0.193291));
 	vertices.push_back(Vector3<double>(-3.178952, 0.087054, -0.193291));
-	vertices.push_back(Vector3<double>(-0.992730, -0.399007, 3.688400));
-	vertices.push_back(Vector3<double>(-0.992730, 0.399006, 3.688404));
+	vertices.push_back(Vector3<double>(-3.178952, -0.087054, -0.193291));
+	vertices.push_back(Vector3<double>(-0.992730, 0.399007, 3.688400));
+	vertices.push_back(Vector3<double>(-0.992730, -0.399006, 3.688404));
 
 	//Right Wing			 
-	vertices.push_back(Vector3<double>(3.135330, -0.087054, -0.193291));
 	vertices.push_back(Vector3<double>(3.135330, 0.087054, -0.193291));
-	vertices.push_back(Vector3<double>(1.007270, -0.399007, 3.688404));
-	vertices.push_back(Vector3<double>(1.007270, 0.399006, 3.688404));
+	vertices.push_back(Vector3<double>(3.135330, -0.087054, -0.193291));
+	vertices.push_back(Vector3<double>(1.007270, 0.399007, 3.688404));
+	vertices.push_back(Vector3<double>(1.007270, -0.399006, 3.688404));
 	
 	//Middle Upper Wing
-	vertices.push_back(Vector3<double>(0.838768, -0.503040, -1.283142));//front
-	vertices.push_back(Vector3<double>(-0.838768, -0.503040, -1.283142));//front
+	vertices.push_back(Vector3<double>(0.838768, 0.503040, -1.283142));//front
+	vertices.push_back(Vector3<double>(-0.838768, 0.503040, -1.283142));//front
 
-	vertices.push_back(Vector3<double>(0.947424, -0.537356, 0.412728));//attachment
-	vertices.push_back(Vector3<double>(-0.947424, -0.537356, 0.412728));//attachment
+	vertices.push_back(Vector3<double>(0.947424, 0.537356, 0.412728));//attachment
+	vertices.push_back(Vector3<double>(-0.947424, 0.537356, 0.412728));//attachment
 
-	vertices.push_back(Vector3<double>(0.947424, -0.591276, 1.108456));//back
-	vertices.push_back(Vector3<double>(-0.947424, -0.591276, 1.108456));//back
+	vertices.push_back(Vector3<double>(0.947424, 0.591276, 1.108456));//back
+	vertices.push_back(Vector3<double>(-0.947424, 0.591276, 1.108456));//back
 
-	vertices.push_back(Vector3<double>(0.5, -1.591276, 1.0)); //top
-	vertices.push_back(Vector3<double>(-0.5, -1.591276, 1.0)); //top
+	vertices.push_back(Vector3<double>(0.5, 1.591276, 1.0)); //top
+	vertices.push_back(Vector3<double>(-0.5, 1.591276, 1.0)); //top
 
 	//Ring 1
 	edges.push_back(Edge<double>(vertices[0], vertices[1]));

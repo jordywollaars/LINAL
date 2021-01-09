@@ -4,7 +4,7 @@
 #include "Vector3.hpp"
 #include "Projectile.hpp"
 
-Spaceship::Spaceship(InputHandler& inputHandler, Scene& scene) : BoundingBox(this->getVertices()), inputHandler{ inputHandler }, scene{scene}
+Spaceship::Spaceship(InputHandler& inputHandler, Scene& scene, Camera& camera) : BoundingBox(this->getVertices()), inputHandler{ inputHandler }, scene{ scene }, camera{ camera }
 {
 	this->setShipRenderObject();
 
@@ -47,25 +47,25 @@ void Spaceship::update(double deltaTime)
 	}
 	if (inputHandler.keyHold(sf::Keyboard::Key::W))
 	{
-		Matrix<double> m = Matrix<double>::rotationMatrix(this->getLocalXAxis(), this->getPivot(), rotationSpeed * deltaTime);
+		Matrix<double> m = Matrix<double>::rotationMatrix(this->getLocalXAxis(), this->getPivot(), -rotationSpeed * deltaTime);
 
 		this->transformObject(m);
 	}
 	if (inputHandler.keyHold(sf::Keyboard::Key::S))
 	{
-		Matrix<double> m = Matrix<double>::rotationMatrix(this->getLocalXAxis(), this->getPivot(), -rotationSpeed * deltaTime);
+		Matrix<double> m = Matrix<double>::rotationMatrix(this->getLocalXAxis(), this->getPivot(), rotationSpeed * deltaTime);
 
 		this->transformObject(m);
 	}
 	if (inputHandler.keyHold(sf::Keyboard::Key::A))
 	{
-		Matrix<double> m = Matrix<double>::rotationMatrix(this->getLocalYAxis(), this->getPivot(), -rotationSpeed * deltaTime);
+		Matrix<double> m = Matrix<double>::rotationMatrix(this->getLocalYAxis(), this->getPivot(), rotationSpeed * deltaTime);
 
 		this->transformObject(m);
 	}
 	if (inputHandler.keyHold(sf::Keyboard::Key::D))
 	{
-		Matrix<double> m = Matrix<double>::rotationMatrix(this->getLocalYAxis(), this->getPivot(), rotationSpeed * deltaTime);
+		Matrix<double> m = Matrix<double>::rotationMatrix(this->getLocalYAxis(), this->getPivot(), -rotationSpeed * deltaTime);
 
 		this->transformObject(m);
 	}
@@ -74,6 +74,16 @@ void Spaceship::update(double deltaTime)
 	if (inputHandler.keyDown(sf::Keyboard::Key::Space))
 	{
 		shoot(currentSpeed);
+	}
+
+	if (inputHandler.keyDown(sf::Keyboard::Key::L))
+	{
+		this->lookAt = !this->lookAt;
+	}
+
+	if (this->lookAt)
+	{
+		camera.setLookAtPosition(this->getPivot());
 	}
 }
 
