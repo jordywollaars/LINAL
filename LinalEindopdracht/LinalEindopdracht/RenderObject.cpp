@@ -5,7 +5,7 @@ void RenderObject::render(sf::RenderWindow& window)
 {
 }
 
-void RenderObject::setSphereRenderObject(int levelOfDetail)
+void RenderObject::setSphereRenderObject()
 {
 	vertices = std::vector<Vector3<double>>();
 	edges = std::vector<Edge<double>>();
@@ -50,38 +50,73 @@ void RenderObject::setSphereRenderObject(int levelOfDetail)
 	edges.push_back(Edge<double>(vertices[3], vertices[1]));
 	edges.push_back(Edge<double>(vertices[1], vertices[4]));
 	edges.push_back(Edge<double>(vertices[4], vertices[3]));
+}
 
-	triangles.push_back(Triangle<double>(edges[0], edges[1], edges[2]));
-	triangles.push_back(Triangle<double>(edges[3], edges[4], edges[5]));
-	triangles.push_back(Triangle<double>(edges[6], edges[7], edges[8]));
-	triangles.push_back(Triangle<double>(edges[9], edges[10], edges[11]));
-	triangles.push_back(Triangle<double>(edges[12], edges[13], edges[14]));
-	triangles.push_back(Triangle<double>(edges[15], edges[16], edges[17]));
-	triangles.push_back(Triangle<double>(edges[18], edges[19], edges[20]));
-	triangles.push_back(Triangle<double>(edges[21], edges[22], edges[23]));
+void RenderObject::setStarRenderObject()
+{
+	vertices = std::vector<Vector3<double>>();
+	edges = std::vector<Edge<double>>();
 
-	/*for (int i = 0; i < 1; i++)
-	{
-		std::vector<Edge<double>> theseEdges = std::vector<Edge<double>>();
+	vertices.push_back(Vector3<double>(-8.0, -256.0, -30.0));
+	vertices.push_back(Vector3<double>(91.0, -140.0, -30.0));
+	vertices.push_back(Vector3<double>(306.0, -140.0, -30.0));
+	vertices.push_back(Vector3<double>(117.0, -10.0, -30.0));
+	vertices.push_back(Vector3<double>(200, 200.0, -30.0));
+	vertices.push_back(Vector3<double>(-5.0, 64.0, -30.0));
+	vertices.push_back(Vector3<double>(-200.0, 200.0, -30.0));
+	vertices.push_back(Vector3<double>(-136.0, -10.0, -30.0));
+	vertices.push_back(Vector3<double>(-326.0, -140.0, -30.0));
+	vertices.push_back(Vector3<double>(-81.0, -140.0, -30.0));
 
-		for (auto tri : triangles)
-		{
-			std::vector<Edge<double>> newEdges = tri.tessellate(this->getPivot());
+	vertices.push_back(Vector3<double>(-8.0, -256.0, 30.0));
+	vertices.push_back(Vector3<double>(91.0, -140.0, 30.0));
+	vertices.push_back(Vector3<double>(306.0, -140.0, 30.0));
+	vertices.push_back(Vector3<double>(117.0, -10.0, 30.0));
+	vertices.push_back(Vector3<double>(200, 200.0, 30.0));
+	vertices.push_back(Vector3<double>(-5.0, 64.0, 30.0));
+	vertices.push_back(Vector3<double>(-200.0, 200.0, 30.0));
+	vertices.push_back(Vector3<double>(-136.0, -10.0, 30.0));
+	vertices.push_back(Vector3<double>(-326.0, -140.0, 30.0));
+	vertices.push_back(Vector3<double>(-81.0, -140.0, 30.0));
 
-			for (auto newEdge : newEdges)
-			{
-				theseEdges.push_back(newEdge);
-			}
-		}
+	edges.push_back(Edge<double>(vertices[0], vertices[1]));
+	edges.push_back(Edge<double>(vertices[1], vertices[2]));
+	edges.push_back(Edge<double>(vertices[2], vertices[3]));
+	edges.push_back(Edge<double>(vertices[3], vertices[4]));
+	edges.push_back(Edge<double>(vertices[4], vertices[5]));
+	edges.push_back(Edge<double>(vertices[5], vertices[6]));
+	edges.push_back(Edge<double>(vertices[6], vertices[7]));
+	edges.push_back(Edge<double>(vertices[7], vertices[8]));
+	edges.push_back(Edge<double>(vertices[8], vertices[9]));
+	edges.push_back(Edge<double>(vertices[9], vertices[0]));
 
-		edges = std::vector<Edge<double>>(theseEdges);
-	}*/
+	edges.push_back(Edge<double>(vertices[10], vertices[11]));
+	edges.push_back(Edge<double>(vertices[11], vertices[12]));
+	edges.push_back(Edge<double>(vertices[12], vertices[13]));
+	edges.push_back(Edge<double>(vertices[13], vertices[14]));
+	edges.push_back(Edge<double>(vertices[14], vertices[15]));
+	edges.push_back(Edge<double>(vertices[15], vertices[16]));
+	edges.push_back(Edge<double>(vertices[16], vertices[17]));
+	edges.push_back(Edge<double>(vertices[17], vertices[18]));
+	edges.push_back(Edge<double>(vertices[18], vertices[19]));
+	edges.push_back(Edge<double>(vertices[19], vertices[10]));
+
+	edges.push_back(Edge<double>(vertices[0], vertices[10]));
+	edges.push_back(Edge<double>(vertices[1], vertices[11]));
+	edges.push_back(Edge<double>(vertices[2], vertices[12]));
+	edges.push_back(Edge<double>(vertices[3], vertices[13]));
+	edges.push_back(Edge<double>(vertices[4], vertices[14]));
+	edges.push_back(Edge<double>(vertices[5], vertices[15]));
+	edges.push_back(Edge<double>(vertices[6], vertices[16]));
+	edges.push_back(Edge<double>(vertices[7], vertices[17]));
+	edges.push_back(Edge<double>(vertices[8], vertices[18]));
+	edges.push_back(Edge<double>(vertices[9], vertices[19]));
 }
 
 void RenderObject::setShipRenderObject()
 {
-	/*vertices = std::vector<Vector3<double>>();
-	edges = std::vector<Edge<double>>();*/
+	vertices = std::vector<Vector3<double>>();
+	edges = std::vector<Edge<double>>();
 
 	//Hull
 
@@ -206,8 +241,6 @@ void RenderObject::setShipRenderObject()
 	edges.push_back(Edge<double>(vertices[14], vertices[18]));
 	edges.push_back(Edge<double>(vertices[15], vertices[19]));
 	
-
-
 	//Left Wing - Hull
 	edges.push_back(Edge<double>(vertices[20], vertices[12]));
 	edges.push_back(Edge<double>(vertices[21], vertices[13]));
@@ -241,27 +274,6 @@ void RenderObject::setShipRenderObject()
 
 	edges.push_back(Edge<double>(vertices[30], vertices[34]));
 	edges.push_back(Edge<double>(vertices[31], vertices[35]));
-
-
-
-	//double multiplier = 20;
-	//for (auto vertex : vertices)
-	//{
-	//	vertex.x = vertex.x * multiplier;
-	//	vertex.y = vertex.y * multiplier;
-	//	vertex.z = vertex.z * multiplier;
-	//	//vertex.print();
-	//}
-
-	this->pivot = Vector3<double>(0, 0, 0);
-
-	//this->setScale(Vector3<double>(0.5, 0.5, 0.5));
-
-	//double angleInRadians = 90 * M_PI / 180;
-	//this->setRotation(Vector3<double>(0, 0, angleInRadians));
-	//this->pivot.print();
-	//this->setPosition(Vector3<double>(100, 100, 100));
-	//this->pivot.print();
 }
 
 void RenderObject::transformObject(Matrix<double> matrix)
@@ -275,8 +287,6 @@ void RenderObject::transformObject(Matrix<double> matrix)
 	{
 		point.transform(matrix);
 	}
-
-	//pivot.transform(matrix);
 
 	BoundingBox* temp = dynamic_cast<BoundingBox*>(this);
 	if (temp)
@@ -313,21 +323,6 @@ std::vector<Edge<double>>& RenderObject::getEdges()
 
 Vector3<double>& RenderObject::getPivot()
 {
-	/*double xTotal = 0;
-	double yTotal = 0;
-	double zTotal = 0;
-
-	for (int i = 0; i < vertices.size(); i++) {
-		xTotal += vertices[i].x;
-		yTotal += vertices[i].y;
-		zTotal += vertices[i].z;
-	}
-
-	Vector3<double> tdp = Vector3<double>(
-		xTotal / vertices.size(),
-		yTotal / vertices.size(),
-		zTotal / vertices.size());*/
-
 	return this->localAxis[0];
 }
 

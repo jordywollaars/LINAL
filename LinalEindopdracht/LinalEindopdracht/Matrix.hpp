@@ -24,16 +24,17 @@ public:
 		}
 	}
 
+	//Matrix multiplication
 	Matrix operator*(Matrix& other)
 	{
-		Matrix multiply(this->rowSize, other.getColSize(), NULL);
+		Matrix multiply(this->rowSize, other.getColumnSize(), NULL);
 		if (this->colSize == other.getRowSize())
 		{
 			unsigned i, j, k;
 			Scalar temp = NULL;
 			for (i = 0; i < this->rowSize; i++)
 			{
-				for (j = 0; j < other.getColSize(); j++)
+				for (j = 0; j < other.getColumnSize(); j++)
 				{
 					temp = NULL;
 					for (k = 0; k < this->colSize; k++)
@@ -52,7 +53,7 @@ public:
 		}
 	}
 
-	// Scalar Operations
+	//Scalar Operations
 	Matrix operator+(Scalar scalar)
 	{
 		Matrix result(this->rowSize, this->colSize, NULL);
@@ -126,7 +127,7 @@ public:
 			std::cout << std::endl;
 		}
 	}
-	unsigned int getColSize() const
+	unsigned int getColumnSize() const
 	{
 		return this->colSize;
 	}

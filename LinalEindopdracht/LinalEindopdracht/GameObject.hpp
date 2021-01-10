@@ -1,13 +1,11 @@
 #pragma once
 
-#include "Transform.hpp"
-
 class RenderObject;
 
-class GameObject : public Transform
+class GameObject
 {
 public:
-	GameObject(RenderObject* renderObject = nullptr) : Transform(renderObject) {}
+	GameObject() {}
 
 	virtual void update(double deltaTime) {};
 };

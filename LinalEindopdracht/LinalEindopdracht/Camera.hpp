@@ -15,15 +15,12 @@ public:
 	Matrix<double> getInverse();
 	Matrix<double> originTranslate();
 
+	void drawLine(Vector3<double> begin, Vector3<double> end, Matrix<double> pm, Matrix<double> m, sf::Color color, sf::RenderWindow& window);
 	void draw(sf::RenderWindow& window);
 
 	void transformPosition(Matrix<double> m);
 
 	void setLookAtPosition(Vector3<double> lookAt);
-
-	Vector3<double> getLocalXAxis();
-	Vector3<double> getLocalYAxis();
-	Vector3<double> getLocalZAxis();
 
 	void update(double deltaTime);
 private:
@@ -40,8 +37,8 @@ private:
 	double moveSpeed = 5;
 	double rotationSpeed = 15;
 
-	double near = 0.1;
-	double far = 1000.0;
-	double fovy = 60.0;
-	double scale = near * std::tan(fovy * 0.5);
+	double near;
+	double far;
+	double fovy;
+	double scale;
 };

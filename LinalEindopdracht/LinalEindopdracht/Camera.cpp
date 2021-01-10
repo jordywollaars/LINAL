@@ -16,10 +16,6 @@ Camera::Camera(Vector3<double> eyePosition, Vector3<double> lookAtPosition, Scen
 	this->right.normalize();
 	this->up = Vector3<double>::crossProduct(this->direction, this->right);
 	this->up.normalize();
-
-	/*this->direction.print();
-	this->right.print();
-	this->up.print();*/
 }
 
 Matrix<double> Camera::getInverse()
@@ -59,6 +55,35 @@ Matrix<double> Camera::originTranslate()
 	return matrix;
 }
 
+void Camera::drawLine(Vector3<double> begin, Vector3<double> end, Matrix<double> pm, Matrix<double> m, sf::Color color, sf::RenderWindow& window)
+{
+	const double canvastWidth = window.getView().getSize().x;
+	const double canvastHeight = window.getView().getSize().y;
+
+	begin = begin.viewTransform(m);
+	end = end.viewTransform(m);
+
+	begin = begin.viewTransform(pm);
+	end = end.viewTransform(pm);
+
+	if (begin.w > 0 && end.w >0)
+	{
+		sf::Vertex edgeLine[]{
+				{
+					sf::Vector2f(canvastWidth / 2 + (int)(begin.x / begin.w * canvastWidth / 2),
+								 canvastHeight / 2 - (int)(begin.y / begin.w * canvastHeight / 2)),
+					color
+				},
+				{
+					sf::Vector2f(canvastWidth / 2 + (int)(end.x / end.w * canvastWidth / 2),
+								 canvastHeight / 2 - (int)(end.y / end.w * canvastHeight / 2)),
+					color
+				}
+		};
+		window.draw(edgeLine, 2, sf::Lines);
+	}
+}
+
 void Camera::draw(sf::RenderWindow& window)
 {
 	const double canvastWidth = window.getView().getSize().x;
@@ -79,33 +104,6 @@ void Camera::draw(sf::RenderWindow& window)
 
 	Matrix<double> m = inverse * origin;
 
-	for (auto renderObject : this->scene.getRenderObjects())
-	{
-		for (int i = 0; i < renderObject->getEdges().size(); i++) {
-			begin = renderObject->getEdges()[i].getStart().projectTransform(m);
-			end = renderObject->getEdges()[i].getEnd().projectTransform(m);
-
-			begin = begin.projectTransform(pm);
-			end = end.projectTransform(pm);
-
-			if ((begin.w > 0) && (end.w > 0)) {
-				sf::Vertex edgeLine[]{
-					{
-						sf::Vector2f(canvastWidth / 2 + (int)(begin.x / begin.w * canvastWidth),
-									 canvastHeight / 2 - (int)(begin.y / begin.w * canvastHeight)),
-						{255,255,255,255}
-					},
-					{
-						sf::Vector2f(canvastWidth / 2 + (int)(end.x / end.w * canvastWidth),
-									 canvastHeight / 2 - (int)(end.y / end.w * canvastHeight)),
-						{255,255,255,255}
-					}
-				};
-				window.draw(edgeLine, 2, sf::Lines);
-			}
-		}
-	}
-
 	std::vector<sf::Color> colors{
 		sf::Color{255,0,0,255},
 		sf::Color{0,255,0,255},
@@ -113,31 +111,24 @@ void Camera::draw(sf::RenderWindow& window)
 	};
 	for (auto renderObject : this->scene.getRenderObjects())
 	{
+		for (int i = 0; i < renderObject->getEdges().size(); i++) {
+			drawLine(renderObject->getEdges()[i].getStart(),
+				renderObject->getEdges()[i].getEnd(),
+				pm,
+				m,
+				{ 255,255,255,255 },
+				window);
+
+		}
+
 		for (int i = 1; i < 4; i++)
 		{
-			
-
-			begin = renderObject->getLocalAxis()[0].projectTransform(m);
-			end = renderObject->getLocalAxis()[i].projectTransform(m);
-
-			begin = begin.projectTransform(pm);
-			end = end.projectTransform(pm);
-
-			if ((begin.w > 0) && (end.w > 0)) {
-				sf::Vertex edgeLine[]{
-					{
-						sf::Vector2f(canvastWidth / 2 + (int)(begin.x / begin.w * canvastWidth),
-									 canvastHeight / 2 - (int)(begin.y / begin.w * canvastHeight)),
-						colors[i - 1]
-					},
-					{
-						sf::Vector2f(canvastWidth / 2 + (int)(end.x / end.w * canvastWidth),
-									 canvastHeight / 2 - (int)(end.y / end.w * canvastHeight)),
-						colors[i - 1]
-					}
-				};
-				window.draw(edgeLine, 2, sf::Lines);
-			}
+			drawLine(renderObject->getLocalAxis()[0],
+				renderObject->getLocalAxis()[i],
+				pm,
+				m,
+				colors[i - 1],
+				window);
 		}
 	}
 }

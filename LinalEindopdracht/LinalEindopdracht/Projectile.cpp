@@ -5,7 +5,7 @@
 
 Projectile::Projectile(Vector3<double> position, std::vector<Vector3<double>> localAxis, Scene& scene, double relativeSpeed) : BoundingBox(this->getVertices()), scene{ scene }
 {
-	this->setSphereRenderObject(0);
+	this->setSphereRenderObject();
 
 	this->transformObject(Matrix<double>::getTranslationMatrix(position.x, position.y, position.z));
 	this->localAxis = localAxis;

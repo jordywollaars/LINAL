@@ -21,16 +21,10 @@
     <ClCompile Include="Matrix.hpp">
       <Filter>Header Files</Filter>
     </ClCompile>
-    <ClCompile Include="Edge.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="RenderObject.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Scene.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Transform.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Camera.cpp">
@@ -91,9 +85,6 @@
     <ClInclude Include="Edge.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Transform.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="GameObject.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -107,9 +98,6 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Camera.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Triangle.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Target.hpp">

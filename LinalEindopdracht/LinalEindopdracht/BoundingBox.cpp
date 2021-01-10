@@ -42,7 +42,7 @@ void BoundingBox::updateBoundingBox()
 			}
 			else if (vertex.z < minZ)
 			{
-				minX = vertex.z;
+				minZ = vertex.z;
 			}
 		}
 	}

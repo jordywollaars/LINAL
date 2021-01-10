@@ -22,6 +22,9 @@ public:
 		this->w = w;
 	}
 
+	/**
+	*	recalculate Vector3 according to given matrix
+	*/
 	void transform(Matrix<Scalar> m)
 	{
 		double x = m(0, 0) * this->x + m(0, 1) * this->y + m(0, 2) * this->z + m(0, 3) * this->w;
@@ -38,7 +41,7 @@ public:
 	/**
 	*	Project Vector3 according to given matrix (This does not update the actual vector)
 	*/
-	Vector3 projectTransform(Matrix<Scalar> m)
+	Vector3 viewTransform(Matrix<Scalar> m)
 	{
 		Vector3<Scalar> projectionVector = Vector3<Scalar>();
 

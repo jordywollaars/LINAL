@@ -13,6 +13,7 @@ public:
 	bool isPointInsideAABB(Vector3<double> point);
 
 	virtual void onCollision(BoundingBox* other) {}
+	
 private:
 	std::vector<Vector3<double>>& vertices;
 
